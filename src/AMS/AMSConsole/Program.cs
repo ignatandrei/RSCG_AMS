@@ -6,11 +6,11 @@ namespace AMSConsole
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Show About My Software versions");
             var ams = new AboutMySoftware();
-            Console.WriteLine(ams.AssemblyName);
-            Console.WriteLine(ams.DateGenerated);
-            Console.WriteLine(ams.CommitId);
+            Console.WriteLine($"{nameof(ams.AssemblyName)} : {ams.AssemblyName}");
+            Console.WriteLine($"{nameof(ams.DateGenerated)} : {ams.DateGenerated}");
+            Console.WriteLine($"{nameof(ams.CommitId)} : {ams.CommitId}");
         }
     }
 }
