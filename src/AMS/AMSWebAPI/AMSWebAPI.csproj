@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -7,8 +7,21 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AMS\AMS.csproj" ReferenceOutputAssembly="true"
-                      OutputItemType="Analyzer" />
+    <PackageReference Include="Transplator" Version="0.2.0" ReferenceOutputAssembly="false"
+                      OutputItemType="Analyzer">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AMS\AMS.csproj" ReferenceOutputAssembly="true" OutputItemType="Analyzer" />
+  </ItemGroup>
+  <ItemGroup>
+    <CompilerVisibleProperty Include="DebugTransplator" />
+    <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="SourceItemType" />
+    <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="Name" />
+    <AdditionalFiles Include="ASM.txt"  SourceItemType="Transplate"
+                       KeepMetadata="Name" />
 
+  </ItemGroup>
 </Project>
