@@ -1,4 +1,5 @@
 ﻿using Microsoft.CodeAnalysis;
+using System;
 
 namespace AMS
 {
@@ -9,9 +10,23 @@ namespace AMS
         {
             //if(!context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.RootNamespace", out var nameSpace))
             
-            var nameSpace = "AMS";            
-            var ams = new AMSGitHub(context);
-            var classDef=$@"
+            var nameSpace = "AMS";
+            AMS ams=null;
+            var envGithub = Environment.GetEnvironmentVariable("GITHUB_JOB");
+            if (!string.IsNullOrWhiteSpace(envGithub))
+            {
+                ams = new AMSGitHub(context);
+            }
+            var envGitLab = Environment.GetEnvironmentVariable("CI_JOB_ID");
+            if (!string.IsNullOrWhiteSpace(envGitLab))
+            {
+                ams = new AMSGitHub(context);
+            }
+            if (ams == null)
+            {
+                ams = new AMS(context);//default not integrated in a CI
+            }
+            var classDef =$@"
 using System;
 namespace {nameSpace} {{ 
     public class AboutMySoftware{{

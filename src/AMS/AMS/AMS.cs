@@ -3,13 +3,14 @@ using System;
 
 namespace AMS
 {
-    abstract class AMS
+    class AMS
     {
         public AMS(GeneratorExecutionContext  context)
         {
             AssemblyName = context.Compilation.AssemblyName;
             GeneratedDate = DateTime.UtcNow;
-
+            CommitId = "not in a CI run";
+            RepoUrl = "not in a CI run";
         }
         public string AssemblyName { get; internal set; }
         public DateTime GeneratedDate { get; internal set; }
