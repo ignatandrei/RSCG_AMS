@@ -2,9 +2,9 @@
 using AMS;
 namespace AMSConsole
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Console.WriteLine("Show About My Software versions");
             var amsAll = AboutMySoftware.AllDefinitions;
