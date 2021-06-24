@@ -11,6 +11,7 @@ namespace AMSConsole
             Console.WriteLine($"{nameof(ams.AssemblyName)} : {ams.AssemblyName}");
             Console.WriteLine($"{nameof(ams.DateGenerated)} : {ams.DateGenerated}");
             Console.WriteLine($"{nameof(ams.CommitId)} : {ams.CommitId}");
+            Console.WriteLine($"{nameof(ams.RepoUrl)} : {ams.RepoUrl}");
         }
     }
 }
