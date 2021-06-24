@@ -8,10 +8,9 @@ namespace AMS
     {
         public void Execute(GeneratorExecutionContext context)
         {
-            if(!context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.RootNamespace", out var nameSpace))
-            {
-                nameSpace = "AMS";
-            }
+            //if(!context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.RootNamespace", out var nameSpace))
+            
+            var nameSpace = "AMS";            
             var ams = new AMS();
             ams.AssemblyName = context.Compilation.AssemblyName;
             ams.GeneratedDate = DateTime.UtcNow;
