@@ -7,11 +7,16 @@ namespace AMSConsole
         static void Main(string[] args)
         {
             Console.WriteLine("Show About My Software versions");
-            var ams = new AboutMySoftware();
-            Console.WriteLine($"{nameof(ams.AssemblyName)} : {ams.AssemblyName}");
-            Console.WriteLine($"{nameof(ams.DateGenerated)} : {ams.DateGenerated}");
-            Console.WriteLine($"{nameof(ams.CommitId)} : {ams.CommitId}");
-            Console.WriteLine($"{nameof(ams.RepoUrl)} : {ams.RepoUrl}");
+            var amsAll = AboutMySoftware.AllDefinitions;
+            foreach (var amsKV in amsAll)
+            {
+                var ams = amsKV.Value;
+
+                Console.WriteLine($"{amsKV.Key}.{nameof(ams.AssemblyName)} : {ams.AssemblyName}");
+                Console.WriteLine($"{amsKV.Key}.{nameof(ams.DateGenerated)} : {ams.DateGenerated}");
+                Console.WriteLine($"{amsKV.Key}.{nameof(ams.CommitId)} : {ams.CommitId}");
+                Console.WriteLine($"{amsKV.Key}.{nameof(ams.RepoUrl)} : {ams.RepoUrl}");
+            }
         }
     }
 }

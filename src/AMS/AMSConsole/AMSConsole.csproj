@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AMS\AMS.csproj" ReferenceOutputAssembly="false"
+    <ProjectReference Include="..\AMS\AMS.csproj" ReferenceOutputAssembly="true"
                       OutputItemType="Analyzer"/>
   </ItemGroup>
 
