@@ -8,7 +8,9 @@ namespace AMSConsole
         {
             Console.WriteLine("Hello World!");
             var ams = new AboutMySoftware();
-            Console.Write(ams.AssemblyName);
+            Console.WriteLine(ams.AssemblyName);
+            Console.WriteLine(ams.DateGenerated);
+            Console.WriteLine(ams.CommitId);
         }
     }
 }
