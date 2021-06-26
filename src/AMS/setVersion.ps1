@@ -7,8 +7,10 @@ if ($xml.Project.PropertyGroup.Version -eq $null)
 { 
         $xml.Project.PropertyGroup.AppendChild($xml.ImportNode(([xml]"<Version/>").DocumentElement,$true)) 
 }
-
-$xml.SelectNodes("/Project/PropertyGroup/Version")[0].InnerText = $version 
+if($xml.Project.PropertyGroup.Version -ne $null){
+        Write-Host " there is a Version"
+        $xml.SelectNodes("/Project/PropertyGroup/Version")[0].InnerText = $version 
+}
 
 if($xml.Project.PropertyGroup.PackageVersion -ne $null){
         Write-Host " there is a PackageVersion "
@@ -33,6 +35,6 @@ Write-Host "Package Version of " $fileName " is " $xml.Project.PropertyGroup.Pac
 $version = Get-Date -Format "yyyy.M.d.Hmm"
 Get-ChildItem -Path .\ -Filter *.csproj -Recurse -File -Name| ForEach-Object {
 
-        WriteVersion $_  $version
+WriteVersion $_  $version
 
 }

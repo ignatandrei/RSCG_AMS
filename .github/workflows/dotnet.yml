@@ -31,7 +31,8 @@ jobs:
         cd AMS
         dotnet tool restore
         dotnet pwsh readme.ps1
-        dotnet pwsh setVersion.ps1  
+        dotnet pwsh setVersion.ps1
+        dotnet clean  
         dotnet pack AMS_Base   -o nugetPackages   
         dotnet pack AMS   -o nugetPackages   
         dotnet pack AMSWebAPI  -o nugetPackages
