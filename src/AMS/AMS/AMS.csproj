@@ -29,7 +29,7 @@
     <Title>Record Visitors</Title>
     <PackageTags>C#;.NET;ASP.NET Core</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
-    <PackageIcon>rv.png</PackageIcon>
+    <PackageIcon>ams.png</PackageIcon>
     <RepositoryUrl>https://github.com/ignatandrei/RSCG_AMS</RepositoryUrl>
     <PackageProjectUrl>https://github.com/ignatandrei/RSCG_AMS</PackageProjectUrl>
     <RepositoryType>GIT</RepositoryType>
