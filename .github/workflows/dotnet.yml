@@ -32,8 +32,8 @@ jobs:
         dotnet tool restore
         dotnet pwsh readme.ps1
         dotnet pwsh setVersion.ps1  
-        dotnet pack .\AMS\   -o nugetPackages   
-        dotnet pack .\AMSWebAPI\  -o nugetPackages
+        dotnet pack AMS   -o nugetPackages   
+        dotnet pack AMSWebAPI  -o nugetPackages
 
 
     - name: 'Upload Artifact'
