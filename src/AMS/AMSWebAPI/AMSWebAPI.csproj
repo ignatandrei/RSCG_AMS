@@ -36,6 +36,7 @@
     <Version>2021.6.26.724</Version>
     <PackageVersion>2021.6.26.724</PackageVersion>
     <Authors>Andrei Ignat</Authors>
+    <PackageId>AMSWebAPI</PackageId>
     <Description>This package lets you show the commit , date , and more for your software . </Description>
     <Title>AboutMySoftware WebAPI</Title>
     <PackageTags>C#;.NET;ASP.NET Core</PackageTags>
