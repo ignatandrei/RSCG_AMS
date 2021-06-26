@@ -18,7 +18,7 @@ namespace AMS
             {
                 ams = new AMSGitHub(context);
             }
-            var envGitLab = Environment.GetEnvironmentVariable("GITLAB_CI");
+            var envGitLab = Environment.GetEnvironmentVariable("CI_SERVER");
             if (!string.IsNullOrWhiteSpace(envGitLab))
             {
                 ams = new AMSGitHub(context);
