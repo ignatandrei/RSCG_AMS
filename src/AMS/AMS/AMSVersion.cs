@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using AMS_Base;
+using Microsoft.CodeAnalysis;
 using System;
 
 namespace AMS
@@ -11,7 +12,7 @@ namespace AMS
             //if(!context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.RootNamespace", out var nameSpace))
             var nameAssembly = context.Compilation.Assembly.Name;
             var nameSpace = "AMS";
-            AMS ams=null;
+            AMSWithContext ams =null;
             var envGithub = Environment.GetEnvironmentVariable("GITHUB_JOB");
             if (!string.IsNullOrWhiteSpace(envGithub))
             {
@@ -24,7 +25,7 @@ namespace AMS
             }
             if (ams == null)
             {
-                ams = new AMS(context);//default not integrated in a CI
+                ams = new AMSWithContext(context);//default not integrated in a CI
             }
             var classDef =
 $@"using System;

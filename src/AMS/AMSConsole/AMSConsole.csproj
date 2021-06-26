@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RSCG_AMS" Version="2021.6.26.723" />
+    <PackageReference Include="RSCG_AMS" Version="2021.6.26.809" />
   </ItemGroup>
 
  

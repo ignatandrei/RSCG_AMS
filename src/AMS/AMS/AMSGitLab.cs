@@ -1,10 +1,11 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using AMS_Base;
+using Microsoft.CodeAnalysis;
 using System;
 
 namespace AMS
 {
     //https://docs.gitlab.com/ee/ci/variables/
-    class AMSGitLab : AMS
+    class AMSGitLab : AMSWithContext
     {
         public AMSGitLab(GeneratorExecutionContext context) : base(context)
         {

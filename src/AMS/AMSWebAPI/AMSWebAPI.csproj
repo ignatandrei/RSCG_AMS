@@ -8,7 +8,7 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="RSCG_AMS" Version="2021.6.26.723" />
+    <PackageReference Include="RSCG_AMS" Version="2021.6.26.809" />
     <PackageReference Include="Transplator" Version="0.2.0" ReferenceOutputAssembly="false" OutputItemType="Analyzer">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

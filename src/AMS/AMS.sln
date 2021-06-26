@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AMSConsole", "AMSConsole\AM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AMSWebAPI", "AMSWebAPI\AMSWebAPI.csproj", "{5AF26799-A314-43A4-A258-F132503E729F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMSWebAPIVerif", "AMSWebAPIVerif\AMSWebAPIVerif.csproj", "{5DB5BD0A-732E-442B-ABAB-4AB100D27CF3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AMSWebAPIVerif", "AMSWebAPIVerif\AMSWebAPIVerif.csproj", "{5DB5BD0A-732E-442B-ABAB-4AB100D27CF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS_Base", "AMS_Base\AMS_Base.csproj", "{D1C80A4D-AD0F-4059-8BF2-72C16225A719}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{5DB5BD0A-732E-442B-ABAB-4AB100D27CF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DB5BD0A-732E-442B-ABAB-4AB100D27CF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DB5BD0A-732E-442B-ABAB-4AB100D27CF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1C80A4D-AD0F-4059-8BF2-72C16225A719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1C80A4D-AD0F-4059-8BF2-72C16225A719}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1C80A4D-AD0F-4059-8BF2-72C16225A719}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1C80A4D-AD0F-4059-8BF2-72C16225A719}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

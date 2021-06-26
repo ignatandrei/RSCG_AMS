@@ -1,11 +1,11 @@
 ﻿using Microsoft.CodeAnalysis;
 using System;
-
+using AMS_Base;
 namespace AMS
 {
 
     //https://docs.github.com/en/actions/reference/environment-variables
-    class AMSGitHub : AMS
+    class AMSGitHub : AMSWithContext
     {
         public AMSGitHub(GeneratorExecutionContext  context):base(context)
         {

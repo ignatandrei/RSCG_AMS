@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AMSWebAPI" Version="2021.6.26.723" />
-    <PackageReference Include="RSCG_AMS" Version="2021.6.26.723" ReferenceOutputAssembly="true" OutputItemType="Analyzer" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="AMSWebAPI" Version="2021.6.26.809" />
+    <PackageReference Include="RSCG_AMS" Version="2021.6.26.809" ReferenceOutputAssembly="true" OutputItemType="Analyzer" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
   </ItemGroup>
 
   <ItemGroup>
