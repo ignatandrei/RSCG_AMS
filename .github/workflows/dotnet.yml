@@ -23,7 +23,7 @@ jobs:
         cd AMS
         dotnet restore
         dotnet build --no-restore
-        dotnet run --project AMSConsole
+        # dotnet run --project AMSConsole
 
     - name: create package
       run: |

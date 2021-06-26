@@ -1,5 +1,4 @@
-﻿using AMS;
-using AMS_Base;
+﻿using AMS_Base;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -43,7 +42,7 @@ namespace AMSWebAPI
             endpoints.MapGet("/ams/All", async app =>
             {
                 
-                   var data = AboutMySoftware.AllDefinitions.Select(it => it).ToArray();
+                   var data = AboutMySoftware.AllDefinitions;
                 await app.Response.WriteAsJsonAsync(data);
             });
             endpoints.MapGet("/ams/index", app =>

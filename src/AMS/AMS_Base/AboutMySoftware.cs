@@ -1,11 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AMS_Base
 {
     public class AboutMySoftware
     {
-        public static Dictionary<string, AboutMySoftware> AllDefinitions = new Dictionary<string, AboutMySoftware>();
+        private  static Dictionary<string, AboutMySoftware> AllDefinitionsDict = new Dictionary<string, AboutMySoftware>();
+
+        public static KeyValuePair<string,AboutMySoftware>[] AllDefinitions
+        {
+            get
+            {
+                return AllDefinitionsDict.ToArray();
+            }
+        }
+        public static void AddDefinition(string name , AboutMySoftware soft)
+        {
+            lock (AllDefinitionsDict)
+            {
+                AllDefinitionsDict[name] = soft;
+            }
+        }
         public string AssemblyName { get; protected set; }
         public DateTime DateGenerated { get; protected set; }
         public string CommitId { get; protected set; }

@@ -34,7 +34,7 @@ namespace {nameAssembly} {{
     public class AboutMySoftware_{nameAssembly} :AboutMySoftware {{
         [System.Runtime.CompilerServices.ModuleInitializer]
         public static void Add_AboutMySoftware_{nameAssembly}(){{
-            AboutMySoftware.AllDefinitions.Add(""{nameAssembly}"",new  AboutMySoftware_{nameAssembly}());      
+            AboutMySoftware.AddDefinition(""{nameAssembly}"",new  AboutMySoftware_{nameAssembly}());      
         }}
         public AboutMySoftware_{nameAssembly}(){{
             AssemblyName =""{ams.AssemblyName}"" ; 
