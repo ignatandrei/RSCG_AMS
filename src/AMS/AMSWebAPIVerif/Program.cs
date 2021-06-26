@@ -13,7 +13,7 @@ namespace AMSWebAPIVerif
     {
         public static void Main(string[] args)
         {
-            //AMSConsole.Program.Main(args);
+            AMSConsole.Program.Main(args);
             CreateHostBuilder(args).Build().Run();
         }
 
