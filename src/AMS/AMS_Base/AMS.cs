@@ -14,6 +14,7 @@ namespace AMS_Base
             DateGenerated = DateTime.UtcNow;
             CommitId = "not in a CI run";
             RepoUrl = "not in a CI run";
+            CISourceControl = "not in a CI run";
         }
     }
 

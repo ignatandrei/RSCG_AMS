@@ -9,8 +9,9 @@ namespace AMS
     {
         public AMSGitLab(GeneratorExecutionContext context) : base(context)
         {
-            CommitId = Environment.GetEnvironmentVariable("CI_COMMIT_SHA");
-            RepoUrl = Environment.GetEnvironmentVariable("CI_PROJECT_URL");
+            CISourceControl = "GitLab";
+            CommitId = Environment.GetEnvironmentVariable("CI_COMMIT_SHA", EnvironmentVariableTarget.Process);
+            RepoUrl = Environment.GetEnvironmentVariable("CI_PROJECT_URL",EnvironmentVariableTarget.Process);
         }
     }
 }

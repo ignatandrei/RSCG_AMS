@@ -22,6 +22,7 @@ namespace AMS_Base
                 AllDefinitionsDict[name] = soft;
             }
         }
+        public string CISourceControl { get; protected set; }
         public string AssemblyName { get; protected set; }
         public DateTime DateGenerated { get; protected set; }
         public string CommitId { get; protected set; }

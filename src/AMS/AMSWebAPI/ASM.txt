@@ -30,6 +30,7 @@ tr:nth-child(even) {
 <th>Date</th>
 <th>Commit</th>
 <th>RepoUrl</th>
+<SC>
 </tr>
 
 {%~ int i=1; ~%}
@@ -40,6 +41,7 @@ tr:nth-child(even) {
 <td>{% item.Value.DateGenerated %} </td>
 <td>{% item.Value.CommitId %} </td>
 <td>{% item.Value.RepoUrl %}</td>
+<td>{% item.Value.CISourceControl %}</td>
 </tr>
 {% } %}
 </table>

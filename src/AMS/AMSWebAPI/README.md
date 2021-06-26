@@ -21,4 +21,4 @@ app.UseEndpoints(endpoints =>
 });
 ```
 
-The access /ams/all ( for json)  or /ams/index ( for html)
+The access /ams/all ( for json)  or /ams/index.html ( for html)

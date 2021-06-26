@@ -9,6 +9,7 @@ namespace AMS
     {
         public AMSGitHub(GeneratorExecutionContext  context):base(context)
         {
+            CISourceControl = "GitHub";
             CommitId = Environment.GetEnvironmentVariable("GITHUB_SHA");
             RepoUrl = Environment.GetEnvironmentVariable("GITHUB_SERVER_URL") + "/" + Environment.GetEnvironmentVariable("GITHUB_REPOSITORY");
         }

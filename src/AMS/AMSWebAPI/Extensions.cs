@@ -45,7 +45,7 @@ namespace AMSWebAPI
                    var data = AboutMySoftware.AllDefinitions;
                 await app.Response.WriteAsJsonAsync(data);
             });
-            endpoints.MapGet("/ams/index", app =>
+            endpoints.MapGet("/ams/index.html", app =>
             {
                 var response = new ASMTemplate().Render();
                 app.Response.ContentType = "text/html";
