@@ -34,9 +34,10 @@ jobs:
         dotnet pwsh setVersion.ps1
         dotnet clean  
         dotnet build
-        dotnet pack AMS_Base   -o nugetPackages   
-        dotnet pack AMS   -o nugetPackages   
-        dotnet pack AMSWebAPI  -o nugetPackages
+        echo 'now pack'
+        dotnet pack AMS_Base   -o nugetPackages    --no-build --include-symbols --include-source 
+        dotnet pack AMS   -o nugetPackages   --no-build --include-symbols --include-source
+        dotnet pack AMSWebAPI  -o nugetPackages --no-build --include-symbols --include-source
 
 
     - name: 'Upload Artifact'
