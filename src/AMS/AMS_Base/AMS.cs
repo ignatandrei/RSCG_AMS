@@ -8,13 +8,9 @@ namespace AMS_Base
         /// 
         /// </summary>
         /// <param name="context">must have  Compilation?.AssemblyName </param>
-        public AMSWithContext(dynamic context)
+        public AMSWithContext(dynamic context):base()
         {
-            AssemblyName = context?.Compilation?.AssemblyName;
-            DateGenerated = DateTime.UtcNow;
-            CommitId = "not in a CI run";
-            RepoUrl = "not in a CI run";
-            CISourceControl = "not in a CI run";
+            AssemblyName = context?.Compilation?.AssemblyName;                        
         }
     }
 

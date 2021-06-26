@@ -22,6 +22,13 @@ namespace AMS_Base
                 AllDefinitionsDict[name] = soft;
             }
         }
+        public AboutMySoftware()
+        {
+            CommitId = "not in a CI run";
+            RepoUrl = "not in a CI run";
+            CISourceControl = "not in a CI run";
+            DateGenerated = DateTime.UtcNow;
+        }
         public string CISourceControl { get; protected set; }
         public string AssemblyName { get; protected set; }
         public DateTime DateGenerated { get; protected set; }
