@@ -28,7 +28,7 @@
     <Authors>Andrei Ignat</Authors>
     <Description>This package lets you put record the commit , date , and more for your software . </Description>
     <Title>AboutMySoftware</Title>
-    <PackageId>AMS_Roslyn</PackageId>
+    <PackageId>RSCG_AMS</PackageId>
     <PackageTags>C#;.NET;ASP.NET Core;Roslyn;RSCG</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <PackageIcon>ams.png</PackageIcon>
