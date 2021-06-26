@@ -5,16 +5,16 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
-  <!--<ItemGroup>
-    <PackageReference Include="AMS_Base" Version="2021.6.26.1301" />
-    <PackageReference Include="RSCG_AMS" Version="2021.6.26.1301" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
-  </ItemGroup>-->
-
   <ItemGroup>
+    <PackageReference Include="AMS_Base" Version="2021.6.26.1417" />
+    <PackageReference Include="RSCG_AMS" Version="2021.6.26.1417" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+  </ItemGroup>
+
+  <!--<ItemGroup>
     <ProjectReference Include="..\AMS\AMS.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
     <ProjectReference Include="..\AMS_Base\AMS_Base.csproj" />
 
-  </ItemGroup>
+  </ItemGroup>-->
 
 
  
