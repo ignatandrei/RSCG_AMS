@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
@@ -36,7 +37,7 @@
     <PackageVersion>2021.6.26.724</PackageVersion>
     <Authors>Andrei Ignat</Authors>
     <Description>This package lets you show the commit , date , and more for your software . </Description>
-    <Title>Record Visitors</Title>
+    <Title>AboutMySoftware WebAPI</Title>
     <PackageTags>C#;.NET;ASP.NET Core</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <PackageIcon>amsWebAPI.png</PackageIcon>
