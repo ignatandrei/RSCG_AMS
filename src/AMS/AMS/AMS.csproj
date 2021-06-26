@@ -53,5 +53,15 @@
   <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
   </PropertyGroup>
+  
+<PropertyGroup>
+    <GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
+</PropertyGroup>
+
+<Target Name="GetDependencyTargetPaths">
+    <ItemGroup>
+        <TargetPathWithTargetPlatformMoniker Include="$(SolutionDir)AMS_Base\$(OutDir)\AMS_Base.dll" IncludeRuntimeDependency="false" />
+    </ItemGroup>
+</Target>
 
 </Project>

@@ -2,7 +2,7 @@
   "profiles": {
     "AMS": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\AMSConsole\\AMSConsole.csproj"
+      "targetProject": "..\\AMSWebAPI\\AMSWebAPI.csproj"
     }
   }
 }
