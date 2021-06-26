@@ -24,4 +24,36 @@
                        KeepMetadata="Name" />
 
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <None Include="readme.md" Pack="true" PackagePath="\" />
+    <None Include="../../../docs/amsWebAPI.png" Pack="true" PackagePath="\" />
+
+  </ItemGroup>
+  <PropertyGroup>
+    <Version>2021.6.26.724</Version>
+    <PackageVersion>2021.6.26.724</PackageVersion>
+    <Authors>Andrei Ignat</Authors>
+    <Description>This package lets you show the commit , date , and more for your software . </Description>
+    <Title>Record Visitors</Title>
+    <PackageTags>C#;.NET;ASP.NET Core</PackageTags>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageIcon>amsWebAPI.png</PackageIcon>
+    <RepositoryUrl>https://github.com/ignatandrei/RSCG_AMS</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/ignatandrei/RSCG_AMS</PackageProjectUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <Copyright>MIT</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <IncludeSymbols>true</IncludeSymbols>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <Deterministic>true</Deterministic>
+    <DebugType>embedded</DebugType>
+
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
 </Project>
