@@ -33,7 +33,7 @@ tr:nth-child(even) {
 </tr>
 
 {%~ int i=1; ~%}
-{%~ foreach(var item in AMS.AboutMySoftware.AllDefinitions){ %}
+{%~ foreach(var item in AMS_Base.AboutMySoftware.AllDefinitions){ %}
 <tr>
 <td>{% i++ %}</td>
 <td>{% item.Key %} </td>

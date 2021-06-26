@@ -5,13 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AMSWebAPI" Version="2021.6.26.809" />
-    <PackageReference Include="RSCG_AMS" Version="2021.6.26.809" ReferenceOutputAssembly="true" OutputItemType="Analyzer" />
+    <PackageReference Include="AMSWebAPI" Version="2021.6.26.1216" />
+    <PackageReference Include="RSCG_AMS" Version="2021.6.26.1216" ReferenceOutputAssembly="true" OutputItemType="Analyzer" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AMSConsole\AMSConsole.csproj" />
+    <!--<ProjectReference Include="..\AMSConsole\AMSConsole.csproj" />-->
   </ItemGroup>
 
 

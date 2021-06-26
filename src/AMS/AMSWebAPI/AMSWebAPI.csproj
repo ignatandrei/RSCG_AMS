@@ -8,7 +8,6 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="RSCG_AMS" Version="2021.6.26.809" />
     <PackageReference Include="Transplator" Version="0.2.0" ReferenceOutputAssembly="false" OutputItemType="Analyzer">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -27,6 +26,11 @@
     <None Include="readme.md" Pack="true" PackagePath="\" />
     <None Include="../../../docs/amsWebAPI.png" Pack="true" PackagePath="\" />
 
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AMS\AMS.csproj" />
+    <ProjectReference Include="..\AMS_Base\AMS_Base.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <Version>2021.6.26.724</Version>
