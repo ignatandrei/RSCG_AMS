@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "AMS": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\AMSConsole\\AMSConsole.csproj"
+    }
+  }
+}

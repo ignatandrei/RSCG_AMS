@@ -41,6 +41,8 @@ namespace {nameAssembly} {{
             DateGenerated = DateTime.ParseExact(""{ams.DateGenerated.ToString("yyyyMMddHHmmss")}"", ""yyyyMMddHHmmss"", null); 
             CommitId  = ""{ams.CommitId}"" ; 
             RepoUrl =""{ams.RepoUrl}"" ; 
+            CISourceControl = ""{ams.CISourceControl}"" ; 
+
         }}
         
     }}
