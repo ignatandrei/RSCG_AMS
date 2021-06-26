@@ -8,21 +8,17 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Transplator" Version="0.2.0" ReferenceOutputAssembly="false"
-                      OutputItemType="Analyzer">
+    <PackageReference Include="RSCG_AMS" Version="2021.6.26.723" />
+    <PackageReference Include="Transplator" Version="0.2.0" ReferenceOutputAssembly="false" OutputItemType="Analyzer">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AMS\AMS.csproj" ReferenceOutputAssembly="true" OutputItemType="Analyzer" />
-  </ItemGroup>
-  <ItemGroup>
     <CompilerVisibleProperty Include="DebugTransplator" />
     <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="SourceItemType" />
     <CompilerVisibleItemMetadata Include="AdditionalFiles" MetadataName="Name" />
-    <AdditionalFiles Include="ASM.txt"  SourceItemType="Transplate"
-                       KeepMetadata="Name" />
+    <AdditionalFiles Include="ASM.txt" SourceItemType="Transplate" KeepMetadata="Name" />
 
   </ItemGroup>
 

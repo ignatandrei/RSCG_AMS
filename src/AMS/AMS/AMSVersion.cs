@@ -26,8 +26,8 @@ namespace AMS
             {
                 ams = new AMS(context);//default not integrated in a CI
             }
-            var classDef =$@"
-using System;
+            var classDef =
+$@"using System;
 using AMS;
 namespace {nameAssembly} {{ 
     public class AboutMySoftware_{nameAssembly} :AboutMySoftware {{

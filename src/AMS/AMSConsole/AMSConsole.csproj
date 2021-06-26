@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AMS\AMS.csproj" ReferenceOutputAssembly="true"
-                      OutputItemType="Analyzer"/>
+    <PackageReference Include="RSCG_AMS" Version="2021.6.26.723" />
   </ItemGroup>
 
+ 
 </Project>
