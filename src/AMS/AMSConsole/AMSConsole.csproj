@@ -6,7 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RSCG_AMS" Version="2021.6.26.809" />
+    <ProjectReference Include="..\AMS\AMS.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    <ProjectReference Include="..\AMS_Base\AMS_Base.csproj" />
   </ItemGroup>
 
  

@@ -29,7 +29,7 @@ namespace AMS
             }
             var classDef =
 $@"using System;
-using AMS;
+using AMS_Base;
 namespace {nameAssembly} {{ 
     public class AboutMySoftware_{nameAssembly} :AboutMySoftware {{
         [System.Runtime.CompilerServices.ModuleInitializer]

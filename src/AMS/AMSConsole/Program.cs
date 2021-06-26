@@ -1,5 +1,6 @@
 ﻿using System;
-using AMS;
+using AMS_Base;
+
 namespace AMSConsole
 {
     public class Program
