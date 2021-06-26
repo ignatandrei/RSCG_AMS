@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AMS_Base" Version="2021.6.26.1515" />
-    <PackageReference Include="RSCG_AMS" Version="2021.6.26.1515" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    <PackageReference Include="AMS_Base" Version="2021.6.26.1746" />
+    <PackageReference Include="RSCG_AMS" Version="2021.6.26.1746" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
   </ItemGroup>
 
   <!--<ItemGroup>
