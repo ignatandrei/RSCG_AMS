@@ -17,10 +17,29 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: Restore dependencies
+    - name: test output
       run: |
         cd src 
         cd AMS
         dotnet restore
         dotnet build --no-restore
         dotnet run --project AMSConsole
+
+    - name: create package
+      run: |
+        cd src 
+        cd AMS
+        dotnet tool restore
+        dotnet pwsh readme.ps1
+        dotnet pwsh setVersion.ps1  
+        dotnet pack .\AMS\   -o nugetPackages   
+        dotnet pack .\AMSWebAPI\  -o nugetPackages
+
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v2
+      with:
+        name: AMSNuget_${{github.run_number}}
+        path: src/AMS/nugetPackages
+        retention-days: 1
+  
