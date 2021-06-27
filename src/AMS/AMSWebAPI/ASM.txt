@@ -46,3 +46,7 @@ tr:nth-child(even) {
 </tr>
 {% } %}
 </table>
+
+<p>
+Json at <a href='/ams/all' target='_blank'>/ams/all</a>
+</p>
