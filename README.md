@@ -6,8 +6,8 @@ a Roslyn Source Code Generator for About My Software
 Add to the csproj
 ```xml 
 <ItemGroup>
-    <PackageReference Include="AMS_Base" Version="2021.6.26.1515" />
-    <PackageReference Include="RSCG_AMS" Version="2021.6.26.1515" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    <PackageReference Include="AMS_Base" Version="2021.6.27.452" />
+    <PackageReference Include="RSCG_AMS" Version="2021.6.27.452" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
   </ItemGroup>
 ```
 
@@ -29,9 +29,9 @@ foreach (var amsKV in amsAll)
 
 Add to the csproj
 ```xml 
-    <PackageReference Include="AMSWebAPI" Version="2021.6.26.1515" />
-    <PackageReference Include="AMS_Base" Version="2021.6.26.1515" />
-    <PackageReference Include="RSCG_AMS" Version="2021.6.26.1515" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    <PackageReference Include="AMSWebAPI" Version="2021.6.27.452" />
+    <PackageReference Include="AMS_Base" Version="2021.6.27.452" />
+    <PackageReference Include="RSCG_AMS" Version="2021.6.27.452" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
 
 ```
 
