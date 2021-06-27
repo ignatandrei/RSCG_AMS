@@ -41,7 +41,7 @@ tr:nth-child(even) {
 <td>{% item.Key %} </td>
 <td>{% item.Value.DateGenerated %} </td>
 <td><a href='{% item.Value.SourceCommit %}' target='_blank'> {% item.Value.CommitId %}</a> </td>
-<td>{% item.Value.RepoUrl %}</td>
+<td><a href='{% item.Value.RepoUrl  %}' target='_blank'> {% item.Value.RepoUrl %} </a> </td>
 <td>{% item.Value.CISourceControl %}</td>
 </tr>
 {% } %}
