@@ -27,16 +27,24 @@ namespace AMS
             {
                 ams = new AMSWithContext(context);//default not integrated in a CI
             }
+            //dealing with  <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.7" />
+
+            var assNewName = "";
+            for (int i = 0; i < nameAssembly.Length; i++)
+            {
+                assNewName = nameAssembly[i] + "_";
+            }
+
             var classDef =
 $@"using System;
 using AMS_Base;
 namespace {nameAssembly} {{ 
-    public class AboutMySoftware_{nameAssembly} :AboutMySoftware {{
+    public class AboutMySoftware_{assNewName} :AboutMySoftware {{
         [System.Runtime.CompilerServices.ModuleInitializer]
-        public static void Add_AboutMySoftware_{nameAssembly}(){{
-            AboutMySoftware.AddDefinition(""{nameAssembly}"",new  AboutMySoftware_{nameAssembly}());      
+        public static void Add_AboutMySoftware_{assNewName}(){{
+            AboutMySoftware.AddDefinition(""{nameAssembly}"",new  AboutMySoftware_{assNewName}());      
         }}
-        public AboutMySoftware_{nameAssembly}(){{
+        public AboutMySoftware_{assNewName}(){{
             AssemblyName =""{ams.AssemblyName}"" ; 
             DateGenerated = DateTime.ParseExact(""{ams.DateGenerated.ToString("yyyyMMddHHmmss")}"", ""yyyyMMddHHmmss"", null); 
             CommitId  = ""{ams.CommitId}"" ; 
