@@ -50,6 +50,7 @@ namespace {nameAssembly} {{
             CommitId  = ""{ams.CommitId}"" ; 
             RepoUrl =""{ams.RepoUrl}"" ; 
             CISourceControl = ""{ams.CISourceControl}"" ; 
+            SourceCommit = ""{ams.SourceCommit}"" ; 
 
         }}
         

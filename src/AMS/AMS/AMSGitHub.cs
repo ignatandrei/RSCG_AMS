@@ -12,6 +12,7 @@ namespace AMS
             CISourceControl = "GitHub";
             CommitId = Environment.GetEnvironmentVariable("GITHUB_SHA");
             RepoUrl = Environment.GetEnvironmentVariable("GITHUB_SERVER_URL") + "/" + Environment.GetEnvironmentVariable("GITHUB_REPOSITORY");
+            SourceCommit = RepoUrl + "/tree/" + CommitId;
         }
     }
 }

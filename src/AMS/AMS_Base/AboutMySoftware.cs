@@ -27,8 +27,11 @@ namespace AMS_Base
             CommitId = "not in a CI run";
             RepoUrl = "not in a CI run";
             CISourceControl = "not in a CI run";
+            SourceCommit = "#";
             DateGenerated = DateTime.UtcNow;
         }
+
+        public string SourceCommit { get; protected set; }
         public string CISourceControl { get; protected set; }
         public string AssemblyName { get; protected set; }
         public DateTime DateGenerated { get; protected set; }
