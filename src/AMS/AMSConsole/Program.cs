@@ -18,6 +18,8 @@ namespace AMSConsole
                 Console.WriteLine($"{amsKV.Key}.{nameof(ams.CommitId)} : {ams.CommitId}");
                 Console.WriteLine($"{amsKV.Key}.{nameof(ams.RepoUrl)} : {ams.RepoUrl}");
                 Console.WriteLine($"{amsKV.Key}.{nameof(ams.CISourceControl)} : {ams.CISourceControl}");
+                Console.WriteLine($"{amsKV.Key}.{nameof(ams.Authors)} : {ams.Authors}");
+                Console.WriteLine($"{amsKV.Key}.{nameof(ams.Version)} : {ams.Version}");
             }
         }
     }

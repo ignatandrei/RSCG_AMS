@@ -30,6 +30,8 @@ namespace AMS_Base
             SourceCommit = "#";
             DateGenerated = DateTime.UtcNow;
         }
+        public string Version { get; set; }
+        public string Authors { get; set; }
 
         public string SourceCommit { get; protected set; }
         public string CISourceControl { get; protected set; }

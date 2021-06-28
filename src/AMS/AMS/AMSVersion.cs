@@ -1,16 +1,54 @@
 ﻿using AMS_Base;
 using Microsoft.CodeAnalysis;
 using System;
+using System.IO;
+using System.Xml;
 
 namespace AMS
 {
+    class ItemsFromCSPROJ
+    {
+        public string Authors { get; set; }
+        public string Version { get; internal set; }
+    }
     [Generator]
     public class AMSVersion : ISourceGenerator
     {
+        private ItemsFromCSPROJ TryGetPropertiesFromCSPROJ(GeneratorExecutionContext context)
+        {
+            var ret= new ItemsFromCSPROJ();
+            try
+            {
+                var dirFolder = ((dynamic)(context.Compilation)).Options?.SourceReferenceResolver?.BaseDirectory;
+                if (string.IsNullOrWhiteSpace(dirFolder))
+                    return ret;
+
+                var file = Directory.GetFiles(dirFolder, "*.csproj");
+                if (file.Length != 1)
+                    throw new ArgumentException($"find files at {dirFolder} :{file.Length} ");
+
+                var xmldoc = new XmlDocument();
+                xmldoc.Load(file[0]);
+                XmlNode node;
+                node = xmldoc.SelectSingleNode("//Authors");
+                ret.Authors = node?.InnerText;
+                node = xmldoc.SelectSingleNode("//Version");
+                ret.Version = node?.InnerText;
+                return ret;
+            }
+            catch(Exception )
+            {
+                //maybe log warning? 
+                return ret;
+            }
+
+        }
         public void Execute(GeneratorExecutionContext context)
         {
+            var data= TryGetPropertiesFromCSPROJ(context);
             //if(!context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.RootNamespace", out var nameSpace))
             var nameAssembly = context.Compilation.Assembly.Name;
+            
             var nameSpace = "AMS";
             AMSWithContext ams =null;
             var envGithub = Environment.GetEnvironmentVariable("GITHUB_JOB");
@@ -34,7 +72,8 @@ namespace AMS
             {
                 assNewName = nameAssembly[i] + "_";
             }
-
+            ams.Authors = data.Authors;
+            ams.Version = data.Version;
             var classDef =
 $@"using System;
 using AMS_Base;
@@ -51,6 +90,8 @@ namespace {nameAssembly} {{
             RepoUrl =""{ams.RepoUrl}"" ; 
             CISourceControl = ""{ams.CISourceControl}"" ; 
             SourceCommit = ""{ams.SourceCommit}"" ; 
+            Authors= ""{ams.Authors}"";
+            Version= ""{ams.Version}"";    
 
         }}
         

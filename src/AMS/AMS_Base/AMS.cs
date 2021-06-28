@@ -12,6 +12,8 @@ namespace AMS_Base
         {
             AssemblyName = context?.Compilation?.AssemblyName;                        
         }
+
+        
     }
 
 }
