@@ -30,7 +30,7 @@ jobs:
         cd src 
         cd AMS
         cd MVCVerif
-        dotnet publish -o publishMVC -r win-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true --project AMSConsole
+        dotnet publish -o publishMVC -r win-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true 
         
 
     - name: create package
