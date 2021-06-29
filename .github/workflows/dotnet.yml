@@ -25,6 +25,13 @@ jobs:
         dotnet build 
         dotnet run --project AMSConsole
         
+    - name: build MVC to have test
+      run: |
+        cd src 
+        cd AMS
+        cd MVCVerif
+        dotnet publish -o publishMVC -r win-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true --project AMSConsole
+        
 
     - name: create package
       run: |
@@ -41,10 +48,17 @@ jobs:
         dotnet pack AMSWebAPI  -o nugetPackages --no-build --include-symbols --include-source
 
 
-    - name: 'Upload Artifact'
+    - name: 'Upload nuget'
       uses: actions/upload-artifact@v2
       with:
         name: AMSNuget_${{github.run_number}}
         path: src/AMS/nugetPackages
+        retention-days: 1
+  
+    - name: 'Upload example'
+      uses: actions/upload-artifact@v2
+      with:
+        name: MVC_${{github.run_number}}
+        path: src/AMS/MVCVerif/publishMVC
         retention-days: 1
   
