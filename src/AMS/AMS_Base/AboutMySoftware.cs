@@ -33,12 +33,12 @@ namespace AMS_Base
         public string Version { get; set; }
         public string Authors { get; set; }
 
-        public string SourceCommit { get; protected set; }
-        public string CISourceControl { get; protected set; }
-        public string AssemblyName { get; protected set; }
+        public string SourceCommit { get; set; }
+        public string CISourceControl { get; set; }
+        public string AssemblyName { get; set; }
         public DateTime DateGenerated { get; protected set; }
-        public string CommitId { get; protected set; }
-        public string RepoUrl { get; protected set; }
+        public string CommitId { get; set; }
+        public string RepoUrl { get; set; }
     }
 
 }
