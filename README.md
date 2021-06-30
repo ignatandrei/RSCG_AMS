@@ -1,13 +1,16 @@
 # RSCG_AMS
 a Roslyn Source Code Generator for About My Software
 
+You will obtain
+
+![RSCG_AMS](https://ignatandrei.github.io/RSCG_AMS/result.png "RSCG_AMS Generated")
 ## For Console Applications
 
 Add to the csproj
 ```xml 
 <ItemGroup>
-    <PackageReference Include="AMS_Base" Version="2021.6.27.452" />
-    <PackageReference Include="RSCG_AMS" Version="2021.6.27.452" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    <PackageReference Include="AMS_Base" Version="2021.6.29.1820" />
+    <PackageReference Include="RSCG_AMS" Version="2021.6.29.1820" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
   </ItemGroup>
 ```
 
@@ -29,9 +32,9 @@ foreach (var amsKV in amsAll)
 
 Add to the csproj
 ```xml 
-    <PackageReference Include="AMSWebAPI" Version="2021.6.27.452" />
-    <PackageReference Include="AMS_Base" Version="2021.6.27.452" />
-    <PackageReference Include="RSCG_AMS" Version="2021.6.27.452" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    <PackageReference Include="AMSWebAPI" Version="2021.6.29.1820" />
+    <PackageReference Include="AMS_Base" Version="2021.6.29.1820" />
+    <PackageReference Include="RSCG_AMS" Version="2021.6.29.1820" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
 
 ```
 
