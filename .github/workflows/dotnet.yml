@@ -29,10 +29,10 @@ jobs:
       run: |
         cd src 
         cd AMS
-        cd MVCVerif
-        echo 'now publish mvc'
-        dotnet publish -o ../publish/publishMVC -r win-x64 --self-contained true -p:PublishSingleFile=false -p:PublishTrimmed=true 
-        cd ..
+        # cd MVCVerif
+        # echo 'now publish mvc'
+        # dotnet publish -o ../publish/publishMVC -r win-x64 --self-contained true -p:PublishSingleFile=false -p:PublishTrimmed=true 
+        # cd ..
         cd AMSWebAPIVerif
         echo 'now publish webapi'
         dotnet publish -o ../publish/publishWebAPI -r win-x64 --self-contained true -p:PublishSingleFile=false -p:PublishTrimmed=true 

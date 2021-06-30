@@ -16,9 +16,9 @@
     <PackageReference Include="RSCG_AMS" Version="2021.6.29.1820" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <ProjectReference Include="..\AMSConsole\AMSConsole.csproj" />
-  </ItemGroup>
+  </ItemGroup>-->
 
 
 </Project>
