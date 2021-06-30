@@ -4,7 +4,14 @@ a Roslyn Source Code Generator for About My Software
 You will obtain
 
 ![RSCG_AMS](https://ignatandrei.github.io/RSCG_AMS/result.png "RSCG_AMS Generated")
-## For Console Applications
+![Nuget](https://img.shields.io/nuget/v/AMS_Base?label=AMS_Base)
+![Nuget](https://img.shields.io/nuget/v/AMSWebAPI?label=AMSWebAPI)
+![Nuget](https://img.shields.io/nuget/v/RSCG_AMS?label=RSCG_AMS)
+
+![BuildAndTest](https://github.com/ignatandrei/RSCG_AMS/actions/workflows/dotnet.yml/badge.svg)
+
+## How to use
+### For Console or DLL 
 
 Add to the csproj
 ```xml 
@@ -28,7 +35,7 @@ foreach (var amsKV in amsAll)
 }
 ```
 
-## For  Web applications
+### For  Web applications
 
 Add to the csproj
 ```xml 
@@ -49,3 +56,14 @@ app.UseEndpoints(endpoints =>
 ```
 
 The access /ams/all ( for json)  or /ams/index ( for html)
+
+## How it is built
+
+The AMS_Base project / nuget is containing the definition
+
+The RSCG_AMS project / nuget generates the code for having , in CI , the C# class with the commit / Repo / date / other details.
+
+The AMSWebAPI project / nuget generates the code for endpoints  :  /ams/index.html and /ams/all ( for json )
+
+See more at http://msprogrammer.serviciipeweb.ro/category/ams/
+
