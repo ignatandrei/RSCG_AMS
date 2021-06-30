@@ -8,9 +8,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.7" />
    
-    <!--<PackageReference Include="AMS_Base" Version="2021.6.26.1937" />
-    <PackageReference Include="RSCG_AMS" Version="2021.6.26.1937" />-->
-    <!--<PackageReference Include="AMSWebAPI" Version="2021.6.26.1937" />-->
     <ProjectReference Include="..\AMS\AMS.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
     <ProjectReference Include="..\AMS_Base\AMS_Base.csproj" />
     <ProjectReference Include="..\AMSWebAPI\AMSWebAPI.csproj" />

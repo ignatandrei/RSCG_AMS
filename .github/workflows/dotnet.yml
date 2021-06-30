@@ -25,13 +25,15 @@ jobs:
         dotnet build 
         dotnet run --project AMSConsole
         
-    - name: build MVC to have test
+    - name: build WebAPI to have test
       run: |
         cd src 
         cd AMS
         cd MVCVerif
-        dotnet publish -o publishMVC -r win-x64 --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true 
-        
+        dotnet publish -o ../publish/publishMVC -r win-x64 --self-contained true -p:PublishSingleFile=false -p:PublishTrimmed=true 
+        cd ..
+        cd AMSWebAPIVerif
+        dotnet publish -o ../publish/publishWebAPI -r win-x64 --self-contained true -p:PublishSingleFile=false -p:PublishTrimmed=true 
 
     - name: create package
       run: |
@@ -58,7 +60,7 @@ jobs:
     - name: 'Upload example'
       uses: actions/upload-artifact@v2
       with:
-        name: MVC_${{github.run_number}}
-        path: src/AMS/MVCVerif/publishMVC
+        name: Example_${{github.run_number}}
+        path: src/AMS/publish
         retention-days: 1
   
