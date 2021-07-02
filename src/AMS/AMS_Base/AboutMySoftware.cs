@@ -42,7 +42,7 @@ namespace AMS_Base
         public string SourceCommit { get; set; }
         public string CISourceControl { get; set; }
         public string AssemblyName { get; set; }
-        public DateTime DateGenerated { get; protected set; }
+        public DateTime DateGenerated { get; set; }
         public string CommitId { get; set; }
         public string RepoUrl { get; set; }
     }

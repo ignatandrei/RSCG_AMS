@@ -32,12 +32,18 @@ var colors = new string[]{
 	"maroon",
 	"purple",
 	"olive",
-	"yellow",
 	"magenta",
 	"red"
 	
 	
 };
+/*
+for(int j=1;j<123;j++){
+var ams1=new AMS_Base.AboutMySoftware();
+ams1.DateGenerated = DateTime.Now.AddDays(j);
+AMS_Base.AboutMySoftware.AddDefinition("Andrei"+j,ams1);
+}
+*/
 var nrColors= colors.Length;
 var ColorForDates=new System.Collections.Generic.Dictionary<DateTime,string>();
 foreach(var dateIn in AMS_Base.AboutMySoftware.Dates ){
@@ -69,7 +75,7 @@ var color = ColorForDates[item.Value.DateGenerated.Date];
 <tr>
 <td>{% i++ %}</td>
 <td>{% item.Key %} </td>
-<td   style='color:{% color %}'>{% item.Value.DateGenerated %} {% color  %} </td>
+<td   style='color:{% color %}'>{% item.Value.DateGenerated %}  </td>
 <td>
 SC: {% item.Value.CISourceControl %}
 <br />
