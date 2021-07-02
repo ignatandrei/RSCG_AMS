@@ -57,3 +57,4 @@ Authors: {% item.Value.Authors  %}
 <p>
 Json at <a href='/ams/all' target='_blank'>/ams/all</a>
 </p>
+<p><small><a href='https://github.com/ignatandrei/RSCG_AMS/' target='_blank'>https://github.com/ignatandrei/RSCG_AMS/</a></small></p>
