@@ -7,12 +7,18 @@ namespace AMS_Base
     public class AboutMySoftware
     {
         private  static Dictionary<string, AboutMySoftware> AllDefinitionsDict = new Dictionary<string, AboutMySoftware>();
-
+        public static DateTime[] Dates
+        {
+            get
+            {
+                return AllDefinitions.Select(it => it.Value.DateGenerated.Date).OrderByDescending(it=>it).ToArray();
+            }
+        }
         public static KeyValuePair<string,AboutMySoftware>[] AllDefinitions
         {
             get
             {
-                return AllDefinitionsDict.ToArray();
+                return AllDefinitionsDict.OrderByDescending(it=>it.Value.DateGenerated).ToArray();
             }
         }
         public static void AddDefinition(string name , AboutMySoftware soft)

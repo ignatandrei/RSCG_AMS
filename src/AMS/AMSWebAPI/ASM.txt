@@ -23,6 +23,34 @@ tr:nth-child(even) {
 }
 </style>
 
+{%~ int i=1; ~%}
+{%~
+
+var colors = new string[]{
+	"blue",
+	"green",
+	"maroon",
+	"purple",
+	"olive",
+	"yellow",
+	"magenta",
+	"red"
+	
+	
+};
+var nrColors= colors.Length;
+var ColorForDates=new System.Collections.Generic.Dictionary<DateTime,string>();
+foreach(var dateIn in AMS_Base.AboutMySoftware.Dates ){
+	if(ColorForDates.ContainsKey(dateIn))
+		continue;
+	//var hash = dateIn.GetHashCode();
+	//ColorForDates.Add(dateIn,  $"#{hash:X8}");
+	var nr = ColorForDates.Count % nrColors;
+	ColorForDates.Add(dateIn,colors[nr]);
+}
+
+~%}
+
 <table>
 <tr>
 <th>Nr</td>
@@ -33,12 +61,15 @@ tr:nth-child(even) {
 <SC>
 </tr>
 
-{%~ int i=1; ~%}
-{%~ foreach(var item in AMS_Base.AboutMySoftware.AllDefinitions){ %}
+{%~ i=1; ~%}
+{%~ foreach(var item in AMS_Base.AboutMySoftware.AllDefinitions){
+
+var color = ColorForDates[item.Value.DateGenerated.Date];
+%}
 <tr>
 <td>{% i++ %}</td>
 <td>{% item.Key %} </td>
-<td>{% item.Value.DateGenerated %} </td>
+<td   style='color:{% color %}'>{% item.Value.DateGenerated %} {% color  %} </td>
 <td>
 SC: {% item.Value.CISourceControl %}
 <br />
