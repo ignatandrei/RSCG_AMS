@@ -70,7 +70,7 @@ namespace AMS
             var assNewName = "";
             for (int i = 0; i < nameAssembly.Length; i++)
             {
-                assNewName = nameAssembly[i] + "_";
+                assNewName += (nameAssembly[i] +i) ;
             }
             ams.Authors = data.Authors;
             ams.Version = data.Version;
@@ -78,12 +78,23 @@ namespace AMS
 $@"using System;
 using AMS_Base;
 namespace {nameAssembly} {{ 
-    public class AboutMySoftware_{assNewName} :AboutMySoftware {{
+    /// <summary>
+    /// this is the About My Software for {assNewName}
+    /// </summary>
+    public class XAboutMySoftware_{assNewName} :AboutMySoftware {{
+        /// <summary>
+        /// starts when this module is loaded and 
+        /// add the AMS tot the 
+        /// </summary>
         [System.Runtime.CompilerServices.ModuleInitializer]
         public static void Add_AboutMySoftware_{assNewName}(){{
-            AboutMySoftware.AddDefinition(""{nameAssembly}"",new  AboutMySoftware_{assNewName}());      
+            AboutMySoftware.AddDefinition(""{nameAssembly}"",new  XAboutMySoftware_{assNewName}());      
         }}
-        public AboutMySoftware_{assNewName}(){{
+        /// <summary>
+        /// constructor
+        /// for AMS {assNewName}
+        /// </summary>
+        public XAboutMySoftware_{assNewName}(){{
             AssemblyName =""{ams.AssemblyName}"" ; 
             DateGenerated = DateTime.ParseExact(""{ams.DateGenerated.ToString("yyyyMMddHHmmss")}"", ""yyyyMMddHHmmss"", null); 
             CommitId  = ""{ams.CommitId}"" ; 
