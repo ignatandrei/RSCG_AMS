@@ -6,8 +6,9 @@ You will obtain
 ![RSCG_AMS](https://ignatandrei.github.io/RSCG_AMS/result.png "RSCG_AMS Generated")
 
  [![AMS_BASE](https://img.shields.io/nuget/v/AMS_Base?label=AMS_Base)](https://www.nuget.org/packages/AMS_Base/)
+ [![AMSWebAPI](https://img.shields.io/nuget/v/AMSWebAPI?label=AMSWebAPI)](https://www.nuget.org/packages/AMSWebAPI/)
  
-![Nuget](https://img.shields.io/nuget/v/AMSWebAPI?label=AMSWebAPI)
+
 ![Nuget](https://img.shields.io/nuget/v/RSCG_AMS?label=RSCG_AMS)
 
 ![BuildAndTest](https://github.com/ignatandrei/RSCG_AMS/actions/workflows/dotnet.yml/badge.svg)
