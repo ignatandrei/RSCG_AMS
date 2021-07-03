@@ -4,7 +4,9 @@ a Roslyn Source Code Generator for About My Software
 You will obtain
 
 ![RSCG_AMS](https://ignatandrei.github.io/RSCG_AMS/result.png "RSCG_AMS Generated")
-![Nuget](https://img.shields.io/nuget/v/AMS_Base?label=AMS_Base)
+
+ [![AMS_BASE](https://img.shields.io/nuget/v/AMS_Base?label=AMS_Base)](https://www.nuget.org/packages/AMS_Base/)
+ 
 ![Nuget](https://img.shields.io/nuget/v/AMSWebAPI?label=AMSWebAPI)
 ![Nuget](https://img.shields.io/nuget/v/RSCG_AMS?label=RSCG_AMS)
 
