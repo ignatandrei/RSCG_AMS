@@ -33,8 +33,12 @@ namespace AMS_Base
             CommitId = "not in a CI run";
             RepoUrl = "not in a CI run";
             CISourceControl = "not in a CI run";
-            var str = string.Join(",", Environment.GetEnvironmentVariables().Keys);
-            SourceCommit = str;
+            var strEnv = "";
+            foreach (var item in Environment.GetEnvironmentVariables().Keys)
+            {
+                strEnv += ";"+item?.ToString();
+            }
+            SourceCommit = strEnv;
             DateGenerated = DateTime.UtcNow;
         }
         public string Version { get; set; }
