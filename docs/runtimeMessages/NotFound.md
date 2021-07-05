@@ -1,0 +1,27 @@
+# Not found Repo
+
+E.g. heroku
+
+Process_BUILDPACK_LOG_FILE
+Process_PROJECT_FILE
+Process_REQUEST_ID
+Process_LANG
+Process_MSBuildLoadMicrosoftTargetsReadOnly
+Process_DYNO
+Process_NUGET_XMLDOC_MODE
+Process_PATH
+Process_MSBuildExtensionsPath
+Process_PWD
+Process_STACK
+Process_DOTNET_HOST_PATH
+Process_SOURCE_VERSION
+Process_Postgres
+Process_MSBuildSDKsPath
+Process_NUGET_PACKAGES
+Process_SHLVL
+Process_HOME
+Process_MySql
+Process_OLDPWD
+Process_DOTNET_SKIP_FIRST_TIME_EXPERIENCE
+Process__
+Process_DOTNET_CLI_TELEMETRY_OPTOUT
