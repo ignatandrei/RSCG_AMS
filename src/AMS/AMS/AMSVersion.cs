@@ -66,6 +66,11 @@ namespace AMS
             {
                 ams = new AMSHeroku(context);
             }
+            var envAzureDevOps = Environment.GetEnvironmentVariable("Build.BuildId");
+            if (ams == null && !string.IsNullOrWhiteSpace(envAzureDevOps))
+            {
+                ams = new AMSAzureDevOps(context);
+            }
             if (ams == null)
             {
                 ams = new AMSWithContext(context);//default not integrated in a CI
