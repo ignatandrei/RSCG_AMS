@@ -28,10 +28,11 @@ namespace AMS_Base
                 AllDefinitionsDict[name] = soft;
             }
         }
+        public string EnvironmentVars { get; set; }
+        public const string NotFoundLink = "https://ignatandrei.github.io/RSCG_AMS/runtimeMessages/NotFound.md";
         public AboutMySoftware()
         {
             CommitId = "not in a CI run";
-            RepoUrl = "not in a CI run";
             CISourceControl = "not in a CI run";
             var strEnv = "";
             foreach (var item in Environment.GetEnvironmentVariables(EnvironmentVariableTarget.User).Keys)
@@ -46,7 +47,10 @@ namespace AMS_Base
             {
                 strEnv += ";Machine_" + item?.ToString();
             }
-            SourceCommit = strEnv;
+            EnvironmentVars = strEnv;
+            RepoUrl = NotFoundLink;
+            SourceCommit = NotFoundLink;
+
             DateGenerated = DateTime.UtcNow;
         }
         public string Version { get; set; }

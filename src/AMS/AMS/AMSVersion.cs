@@ -108,7 +108,7 @@ namespace {nameAssembly} {{
             SourceCommit = ""{ams.SourceCommit}"" ; 
             Authors= ""{ams.Authors}"";
             Version= ""{ams.Version}"";    
-
+            EnvironmentVars =""{ams.EnvironmentVars}"";
         }}
         
     }}

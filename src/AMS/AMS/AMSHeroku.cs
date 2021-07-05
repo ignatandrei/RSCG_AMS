@@ -10,7 +10,6 @@ namespace AMS
         {
             CISourceControl = "Heroku";
             CommitId = Environment.GetEnvironmentVariable("SOURCE_VERSION");
-            RepoUrl = "Heroku";
             
         }
     }
