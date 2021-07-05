@@ -52,14 +52,19 @@ namespace AMS
             var nameSpace = "AMS";
             AMSWithContext ams =null;
             var envGithub = Environment.GetEnvironmentVariable("GITHUB_JOB");
-            if (!string.IsNullOrWhiteSpace(envGithub))
+            if (ams != null && !string.IsNullOrWhiteSpace(envGithub))
             {
                 ams = new AMSGitHub(context);
             }
             var envGitLab = Environment.GetEnvironmentVariable("CI_SERVER");
-            if (!string.IsNullOrWhiteSpace(envGitLab))
+            if (ams != null && !string.IsNullOrWhiteSpace(envGitLab))
             {
                 ams = new AMSGitLab(context);
+            }
+            var envHeroku= Environment.GetEnvironmentVariable("SOURCE_VERSION");
+            if (ams != null && !string.IsNullOrWhiteSpace(envHeroku))
+            {
+                ams = new AMSHeroku(context);
             }
             if (ams == null)
             {
