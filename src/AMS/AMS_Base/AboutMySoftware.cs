@@ -34,9 +34,17 @@ namespace AMS_Base
             RepoUrl = "not in a CI run";
             CISourceControl = "not in a CI run";
             var strEnv = "";
-            foreach (var item in Environment.GetEnvironmentVariables().Keys)
+            foreach (var item in Environment.GetEnvironmentVariables(EnvironmentVariableTarget.User).Keys)
             {
-                strEnv += ";"+item?.ToString();
+                strEnv += ";User_"+item?.ToString();
+            }
+            foreach (var item in Environment.GetEnvironmentVariables(EnvironmentVariableTarget.Process).Keys)
+            {
+                strEnv += ";Process_" + item?.ToString();
+            }
+            foreach (var item in Environment.GetEnvironmentVariables(EnvironmentVariableTarget.Machine).Keys)
+            {
+                strEnv += ";Machine_" + item?.ToString();
             }
             SourceCommit = strEnv;
             DateGenerated = DateTime.UtcNow;

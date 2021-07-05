@@ -10,9 +10,8 @@ namespace AMS
         {
             CISourceControl = "Heroku";
             CommitId = Environment.GetEnvironmentVariable("SOURCE_VERSION");
-            var str = string.Join(",",Environment.GetEnvironmentVariables().Keys);
-            RepoUrl = str;
-            SourceCommit = "in heroku";
+            RepoUrl = "Heroku";
+            
         }
     }
 }
