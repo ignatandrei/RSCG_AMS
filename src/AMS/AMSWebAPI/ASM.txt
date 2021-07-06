@@ -62,7 +62,7 @@ foreach(var dateIn in AMS_Base.AboutMySoftware.Dates ){
 <th>Nr</td>
 <th>Component</th>
 <th>Date</th>
-<th>Source Control </th>
+<th>CI Build</th>
 <th>Project</th>
 <SC>
 </tr>
@@ -77,11 +77,13 @@ var color = ColorForDates[item.Value.DateGenerated.Date];
 <td>{% item.Key %} </td>
 <td   style='color:{% color %}'>{% item.Value.DateGenerated %}  </td>
 <td>
-SC: {% item.Value.CISourceControl %}
+SourceControl : {% item.Value.CISourceControl %}
 <br />
 Commit : <a href='{% item.Value.SourceCommit %}' target='_blank'> {% item.Value.CommitId %}</a> 
 <br />
 Repo :<a href='{% item.Value.RepoUrl  %}' target='_blank'> {% item.Value.RepoUrl %} </a> 
+<br />
+User : {% item.Value.User %} </a> 
 </td>
 <td>
 Version: {% item.Value.Version  %} <br />

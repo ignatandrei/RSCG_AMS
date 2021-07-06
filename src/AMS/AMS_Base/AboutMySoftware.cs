@@ -50,9 +50,10 @@ namespace AMS_Base
             EnvironmentVars = strEnv;
             RepoUrl = NotFoundLink;
             SourceCommit = NotFoundLink;
-
+            User = Environment.UserName;
             DateGenerated = DateTime.UtcNow;
         }
+        public string User { get; set; }
         public string Version { get; set; }
         public string Authors { get; set; }
 

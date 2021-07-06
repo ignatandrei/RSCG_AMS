@@ -114,6 +114,7 @@ namespace {nameAssembly} {{
             Authors= ""{ams.Authors}"";
             Version= ""{ams.Version}"";    
             EnvironmentVars =""{ams.EnvironmentVars}"";
+            User = ""{ams.User.Replace(@"\",@"\\")}"";
         }}
         
     }}
