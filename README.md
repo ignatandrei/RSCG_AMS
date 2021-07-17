@@ -49,9 +49,10 @@ Add to the csproj
 
 ```
 
-And in the Startup.cs put
+And in the Startup.cs put 
 
 ```csharp
+//above the namespace : using AMSWebAPI;
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
