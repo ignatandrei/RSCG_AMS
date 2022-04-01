@@ -90,6 +90,7 @@ namespace AMS
             var nameSpace = "AMS";
             AMSWithContext ams =null;
             ReleaseData[] rd= null;
+
             //rd = ConstructVersionsGitHub(releasesVersions);
 
             var envGithub = Environment.GetEnvironmentVariable("GITHUB_JOB");
