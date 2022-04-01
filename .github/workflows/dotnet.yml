@@ -14,7 +14,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        fetch-depth: 30
+        fetch-depth: 0
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
@@ -22,14 +22,17 @@ jobs:
     - name: test run
       run: |
         where.exe git.exe
+        echo start git0
+        git log --merges --pretty='%an|%cs|%H|%s'
+        echo end git0
         # git for-each-ref --format='%(committerdate:short) %00  %(authorname) %(refname) %(subject)' --sort=committerdate --merged=HEAD
         # git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %00 %(objectname) %(authorname) %(refname) %(subject)'
-        echo start git1
-        git for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)||%(refname)|%(subject)'
-        echo end git1
-        echo start git2
-        git for-each-ref --sort=committerdate --format='%(authorname)|%(committerdate:short)|%(objectname)||%(refname)|%(subject)'
-        echo end git2
+        # echo start git1
+        # git for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)||%(refname)|%(subject)'
+        # echo end git1
+        # echo start git2
+        # git for-each-ref --sort=committerdate --format='%(authorname)|%(committerdate:short)|%(objectname)||%(refname)|%(subject)'
+        # echo end git2
         cd src 
         cd AMS
         dotnet restore
