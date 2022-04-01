@@ -14,19 +14,4 @@ namespace AMS_Base
         public VersionReleased ReleaseVersion { get; set; }
 
     }
-
-    public class VersionReleased
-    {
-        public VersionReleased(VersionReleasedAttribute attr)
-        {
-            this.Name = attr.Name;
-            this.ISODateTime = attr.MyDateTime();
-        }
-
-        public ReleaseData[] releaseDatas { get; set; }
-        public string Name { get; set; }
-        public DateTime ISODateTime { get; set; }
-
-        
-    }
 }

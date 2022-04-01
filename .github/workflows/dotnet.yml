@@ -19,8 +19,15 @@ jobs:
         dotnet-version: 5.0.x
     - name: test run
       run: |
-        git for-each-ref --format='%(committerdate:short) %00  %(authorname) %(refname) %(subject)' --sort=committerdate --merged=HEAD
-        git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %00 %(objectname) %(authorname) %(refname) %(subject)'
+        where.exe git.exe
+        # git for-each-ref --format='%(committerdate:short) %00  %(authorname) %(refname) %(subject)' --sort=committerdate --merged=HEAD
+        # git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %00 %(objectname) %(authorname) %(refname) %(subject)'
+        echo start git
+        git for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)||%(refname)|%(subject)'
+        echo end git
+        echo start git
+        git for-each-ref --sort=committerdate --format='%(authorname)|%(committerdate:short)|%(objectname)||%(refname)|%(subject)'
+        echo end git
         cd src 
         cd AMS
         dotnet restore

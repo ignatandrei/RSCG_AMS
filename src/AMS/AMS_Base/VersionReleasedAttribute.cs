@@ -19,6 +19,13 @@ namespace AMS_Base
             }
             return cacheIsoDateTime.Value;
         }
+        private VersionReleased backup;
+        public VersionReleased Version()
+        {
+            if (backup == null)
+                backup = new VersionReleased(this);
+            return backup;
+        }
 
     }
 
