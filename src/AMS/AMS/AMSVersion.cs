@@ -264,8 +264,8 @@ namespace {nameAssembly} {{
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.FileName = WhereGit();
-            //p.StartInfo.Arguments = "for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)||%(refname)|%(subject)'";
-            p.StartInfo.Arguments = "for-each-ref --sort=committerdate --format='%(authorname)|%(committerdate:short)|%(objectname)||%(refname)|%(subject)'";
+            //p.StartInfo.Arguments = "for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
+            p.StartInfo.Arguments = "for-each-ref --sort=committerdate --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
             string output = "";
             p.OutputDataReceived += (s, e) => { output += e.Data + Environment.NewLine; };
             p.Start();
@@ -274,7 +274,7 @@ namespace {nameAssembly} {{
             p.WaitForExit();
             foreach(var line in output.Split(new[] { Environment.NewLine },StringSplitOptions.RemoveEmptyEntries))
             {
-                var arrData = line.Split('|');
+                var arrData = line.Split(new[] { '|' },StringSplitOptions.RemoveEmptyEntries);
                 var rd = new ReleaseData();
                 rd.Author=arrData[0];
                 rd.ReleaseDate = DateTime.ParseExact(arrData[1], "yyyy-MM-dd",null);
