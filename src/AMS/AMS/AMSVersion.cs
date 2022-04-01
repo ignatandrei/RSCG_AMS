@@ -90,7 +90,8 @@ namespace AMS
             var nameSpace = "AMS";
             AMSWithContext ams =null;
             ReleaseData[] rd= null;
-            
+            //rd = ConstructVersionsGitHub(releasesVersions);
+
             var envGithub = Environment.GetEnvironmentVariable("GITHUB_JOB");
             if (ams == null && !string.IsNullOrWhiteSpace(envGithub))
             {
@@ -127,6 +128,38 @@ namespace AMS
             }
             ams.Authors = data.Authors;
             ams.Version = data.Version;
+            //versioning
+            string versioning = "";
+            if(rd != null)
+            {
+                var dict = rd.GroupBy(it => it.ReleaseVersion).ToDictionary(it => it.Key, it => it.ToArray());
+                foreach (var item in dict)
+                {
+                    var rv = item.Key;
+                    versioning += $@"{{ var v=new VersionReleased();
+                         v.Name = ""{rv.Name}"" ;
+                         v.ISODateTime=DateTime.ParseExact(""{rv.ISODateTime.ToString("yyyyMMdd")}"",""yyyMMdd"",null); ";
+                    foreach(var cm in item.Value)
+                    {
+                        versioning += $@"{{ 
+var rd=new ReleaseData();
+rd.Branch = ""{cm.Branch}"";
+rd.Author = ""{cm.Author}"";
+rd.CommitId = ""{cm.CommitId}"";
+rd.Subject = ""{cm.Subject}"";
+rd.ReleaseDate = DateTime.ParseExact(""{cm.ReleaseDate.ToString("yyyyMMdd")}"",""yyyMMdd"",null);  
+v.AddRelease(rd);
+";
+                        
+                        versioning += "}";
+                    }
+                    versioning += " this.AddVersion(v);";
+                    versioning += "}";
+                
+                }
+            }
+            
+
             var classDef =
 $@"using System;
 using AMS_Base;
@@ -158,6 +191,7 @@ namespace {nameAssembly} {{
             Version= ""{ams.Version}"";    
             EnvironmentVars =""{ams.EnvironmentVars}"";
             User = ""{ams.User.Replace(@"\",@"\\")}"";
+            {versioning}
         }}
         
     }}

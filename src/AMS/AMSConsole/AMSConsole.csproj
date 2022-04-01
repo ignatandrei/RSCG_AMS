@@ -16,5 +16,8 @@
     <Authors>Andrei Ignat</Authors>
   </PropertyGroup>
 
- 
+	<PropertyGroup>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)GeneratedX</CompilerGeneratedFilesOutputPath>
+	</PropertyGroup>
 </Project>

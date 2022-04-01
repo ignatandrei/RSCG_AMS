@@ -29,10 +29,28 @@ namespace AMS_Base
                 AllDefinitionsDict[name] = soft;
             }
         }
+        private List<VersionReleased> backup;
+        public VersionReleased[] Versions
+        {
+            get
+            {
+                return backup.ToArray();
+            }
+            set
+            {
+                backup =  new List<VersionReleased>(value);
+            }
+        }
+        public AboutMySoftware AddVersion(VersionReleased v)
+        {
+            this.backup.Add(v);
+            return this;
+        }
         public string EnvironmentVars { get; set; }
         public const string NotFoundLink = "https://ignatandrei.github.io/RSCG_AMS/runtimeMessages/NotFound.md";
         public AboutMySoftware()
         {
+            backup = new List<VersionReleased>();
             CommitId = "not in a CI run";
             CISourceControl = "not in a CI run";
             var strEnv = "";
