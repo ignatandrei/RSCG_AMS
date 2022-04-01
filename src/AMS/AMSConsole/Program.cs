@@ -9,6 +9,7 @@ namespace AMSConsole
     {
         public static void Main(string[] args)
         {
+
             Console.WriteLine("Show About My Software versions");
             var amsAll = AboutMySoftware.AllDefinitions;
             Console.WriteLine("Number definitions:" + amsAll?.Length);

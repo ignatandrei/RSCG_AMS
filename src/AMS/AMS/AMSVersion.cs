@@ -130,16 +130,18 @@ namespace AMS
             ams.Authors = data.Authors;
             ams.Version = data.Version;
             //versioning
-            string versioning = "";
+            string versioning = $"//raw commits:{rd?.Length}";
             if(rd != null)
             {
                 var dict = rd.GroupBy(it => it.ReleaseVersion).ToDictionary(it => it.Key, it => it.ToArray());
+                
                 foreach (var item in dict)
                 {
                     var rv = item.Key;
-                    versioning += $@"{{ var v=new VersionReleased();
-                         v.Name = ""{rv.Name}"" ;
-                         v.ISODateTime=DateTime.ParseExact(""{rv.ISODateTime.ToString("yyyyMMdd")}"",""yyyMMdd"",null); ";
+                    versioning += $@"
+{{ var v=new VersionReleased();
+v.Name = ""{rv.Name}"" ;
+v.ISODateTime=DateTime.ParseExact(""{rv.ISODateTime.ToString("yyyyMMdd")}"",""yyyyMMdd"",null); ";
                     foreach(var cm in item.Value)
                     {
                         versioning += $@"{{ 
@@ -148,7 +150,7 @@ rd.Branch = ""{cm.Branch}"";
 rd.Author = ""{cm.Author}"";
 rd.CommitId = ""{cm.CommitId}"";
 rd.Subject = ""{cm.Subject}"";
-rd.ReleaseDate = DateTime.ParseExact(""{cm.ReleaseDate.ToString("yyyyMMdd")}"",""yyyMMdd"",null);  
+rd.ReleaseDate = DateTime.ParseExact(""{cm.ReleaseDate.ToString("yyyyMMdd")}"",""yyyyMMdd"",null);  
 v.AddRelease(rd);
 ";
                         
@@ -220,6 +222,33 @@ namespace {nameAssembly} {{
             gitBranchVersion = gitBranchVersion.Where(it => !it.Subject.StartsWith("Merge pull request")).ToArray();
             return gitBranchVersion;
         }
+        private string WhereGit()
+        {
+            var p = new Process();
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardOutput = true;
+            switch (Environment.OSVersion.Platform)
+            {
+                case PlatformID.Win32NT:
+                case PlatformID.Win32Windows:
+                    p.StartInfo.FileName = "where.exe";
+                    break;
+                case PlatformID.Unix:
+                case PlatformID.MacOSX:
+                    p.StartInfo.FileName = "which";
+                    break;
+            }
+
+            p.StartInfo.Arguments = "git";
+            string output = "";
+            p.OutputDataReceived += (s, e) => { output += e.Data + Environment.NewLine; };
+            p.Start();
+
+            p.BeginOutputReadLine();
+            p.WaitForExit();
+            return output.Replace(Environment.NewLine,"");
+
+        }
         private ReleaseData[] ConstructBranchVersionsGit(VersionReleasedAttribute[] releasesVersions)
         {
             if ((releasesVersions?.Length ?? 0) == 0)
@@ -229,7 +258,7 @@ namespace {nameAssembly} {{
             var p = new Process();
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.FileName = "git";
+            p.StartInfo.FileName = WhereGit();
             p.StartInfo.Arguments = "for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)||%(refname)|%(subject)'";
             string output = "";
             p.OutputDataReceived += (s, e) => { output += e.Data + Environment.NewLine; };
@@ -246,7 +275,7 @@ namespace {nameAssembly} {{
                 rd.CommitId = arrData[2];
                 rd.Branch = arrData[3];
                 rd.Subject =arrData[4];
-                rd.ReleaseVersion =new VersionReleased( releasesVersions.First(it => it.MyDateTime().Date <=rd.ReleaseDate));
+                rd.ReleaseVersion = releasesVersions.First(it => it.MyDateTime().Date <=rd.ReleaseDate).Version();
                 releases.Add(rd);
                 
 
