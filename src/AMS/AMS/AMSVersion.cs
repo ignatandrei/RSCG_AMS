@@ -237,16 +237,20 @@ namespace {nameAssembly} {{
                 case PlatformID.MacOSX:
                     p.StartInfo.FileName = "which";
                     break;
+                default:
+                    throw new ArgumentException("platform " + Environment.OSVersion.Platform);
             }
 
-            p.StartInfo.Arguments = "git";
+            p.StartInfo.Arguments = "git.exe";
             string output = "";
             p.OutputDataReceived += (s, e) => { output += e.Data + Environment.NewLine; };
             p.Start();
 
             p.BeginOutputReadLine();
             p.WaitForExit();
-            return output.Replace(Environment.NewLine,"");
+            var gitPath=output.Replace(Environment.NewLine,"");
+            return gitPath;
+            //Console.WriteLine("gitPath:" + gitPath);
 
         }
         private ReleaseData[] ConstructBranchVersionsGit(VersionReleasedAttribute[] releasesVersions)

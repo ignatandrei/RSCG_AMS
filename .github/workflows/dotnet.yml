@@ -19,6 +19,7 @@ jobs:
         dotnet-version: 5.0.x
     - name: test run
       run: |
+        where.exe git.exe
         git for-each-ref --format='%(committerdate:short) %00  %(authorname) %(refname) %(subject)' --sort=committerdate --merged=HEAD
         git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %00 %(objectname) %(authorname) %(refname) %(subject)'
         cd src 
