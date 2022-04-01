@@ -17,8 +17,10 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: test output
+    - name: test run
       run: |
+        git for-each-ref --format='%(committerdate:short) %00  %(authorname) %(refname) %(subject)' --sort=committerdate --merged=HEAD
+        git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %00 %(objectname) %(authorname) %(refname) %(subject)'
         cd src 
         cd AMS
         dotnet restore
