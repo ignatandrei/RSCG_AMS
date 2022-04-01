@@ -25,6 +25,9 @@ jobs:
         echo start git
         git for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)||%(refname)|%(subject)'
         echo end git
+        echo start git
+        git for-each-ref --sort=committerdate --format='%(authorname)|%(committerdate:short)|%(objectname)||%(refname)|%(subject)'
+        echo end git
         cd src 
         cd AMS
         dotnet restore

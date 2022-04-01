@@ -264,7 +264,8 @@ namespace {nameAssembly} {{
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.FileName = WhereGit();
-            p.StartInfo.Arguments = "for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)||%(refname)|%(subject)'";
+            //p.StartInfo.Arguments = "for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)||%(refname)|%(subject)'";
+            p.StartInfo.Arguments = "for-each-ref --sort=committerdate --format='%(authorname)|%(committerdate:short)|%(objectname)||%(refname)|%(subject)'";
             string output = "";
             p.OutputDataReceived += (s, e) => { output += e.Data + Environment.NewLine; };
             p.Start();
