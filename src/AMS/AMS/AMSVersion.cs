@@ -248,7 +248,8 @@ namespace {nameAssembly} {{
 
             p.BeginOutputReadLine();
             p.WaitForExit();
-            var gitPath=output.Replace(Environment.NewLine,"");
+            output += Environment.NewLine;
+            var gitPath = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).First();
             return gitPath;
             //Console.WriteLine("gitPath:" + gitPath);
 
