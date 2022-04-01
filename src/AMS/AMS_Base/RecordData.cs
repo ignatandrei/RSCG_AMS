@@ -6,7 +6,7 @@ namespace AMS_Base
     public enum RecordData: long
     {
         None=0,
-        Branches=1,
+        Merges=1,
     }
 
 }

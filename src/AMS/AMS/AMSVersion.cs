@@ -91,7 +91,7 @@ namespace AMS
             AMSWithContext ams =null;
             ReleaseData[] rd= null;
 
-            //rd = ConstructVersionsGitHub(releasesVersions);
+            rd = ConstructVersionsGitHub(releasesVersions);
 
             var envGithub = Environment.GetEnvironmentVariable("GITHUB_JOB");
             if (ams == null && !string.IsNullOrWhiteSpace(envGithub))
@@ -146,7 +146,6 @@ v.ISODateTime=DateTime.ParseExact(""{rv.ISODateTime.ToString("yyyyMMdd")}"",""yy
                     {
                         versioning += $@"{{ 
 var rd=new ReleaseData();
-rd.Branch = ""{cm.Branch}"";
 rd.Author = ""{cm.Author}"";
 rd.CommitId = ""{cm.CommitId}"";
 rd.Subject = ""{cm.Subject}"";
@@ -206,21 +205,21 @@ namespace {nameAssembly} {{
 
         private ReleaseData[] ConstructVersionsGitLab(VersionReleasedAttribute[] releasesVersions)
         {
-            var gitBranchVersion = ConstructBranchVersionsGit( releasesVersions);
-            if ((gitBranchVersion?.Length??0) == 0)
-                return gitBranchVersion;
+            var gitMergeVersion = ConstructMergesVersionsGit( releasesVersions);
+            if ((gitMergeVersion?.Length??0) == 0)
+                return gitMergeVersion;
 
-            return gitBranchVersion;
+            return gitMergeVersion;
         }
 
         private ReleaseData[] ConstructVersionsGitHub(VersionReleasedAttribute[]  releasesVersions)
         {
-            var gitBranchVersion = ConstructBranchVersionsGit(releasesVersions);
-            if ((gitBranchVersion?.Length ?? 0) == 0)
-                return gitBranchVersion;
+            var gitMergeVersion = ConstructMergesVersionsGit(releasesVersions);
+            if ((gitMergeVersion?.Length ?? 0) == 0)
+                return gitMergeVersion;
 
-            gitBranchVersion = gitBranchVersion.Where(it => !it.Subject.StartsWith("Merge pull request")).ToArray();
-            return gitBranchVersion;
+            gitMergeVersion = gitMergeVersion.Where(it => !it.Subject.StartsWith("into main")).ToArray();
+            return gitMergeVersion;
         }
         private string WhereGit()
         {
@@ -254,7 +253,7 @@ namespace {nameAssembly} {{
             //Console.WriteLine("gitPath:" + gitPath);
 
         }
-        private ReleaseData[] ConstructBranchVersionsGit(VersionReleasedAttribute[] releasesVersions)
+        private ReleaseData[] ConstructMergesVersionsGit(VersionReleasedAttribute[] releasesVersions)
         {
             if ((releasesVersions?.Length ?? 0) == 0)
                 return null;
@@ -265,7 +264,8 @@ namespace {nameAssembly} {{
             p.StartInfo.RedirectStandardOutput = true;
             p.StartInfo.FileName = WhereGit();
             //p.StartInfo.Arguments = "for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
-            p.StartInfo.Arguments = "for-each-ref --sort=committerdate --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
+            //p.StartInfo.Arguments = "for-each-ref --sort=committerdate --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
+            p.StartInfo.Arguments = "log --merges --pretty='%an|%cs|%H|%s'";
             string output = "";
             p.OutputDataReceived += (s, e) => { output += e.Data + Environment.NewLine; };
             p.Start();
@@ -278,11 +278,14 @@ namespace {nameAssembly} {{
                 var rd = new ReleaseData();
                 rd.Author=arrData[0];
                 rd.ReleaseDate = DateTime.ParseExact(arrData[1], "yyyy-MM-dd",null);
-                rd.CommitId = arrData[2];
-                rd.Branch = arrData[3];
-                rd.Subject =arrData[4];
-                rd.ReleaseVersion = releasesVersions.First(it => it.MyDateTime().Date <=rd.ReleaseDate).Version();
-                releases.Add(rd);
+                rd.CommitId = arrData[2];                
+                rd.Subject =arrData[3];
+                rd.ReleaseVersion = releasesVersions
+                    .OrderBy(it=>it.MyDateTime())
+                    .FirstOrDefault(it => it.MyDateTime().Date >=rd.ReleaseDate)
+                    ?.Version();
+                if(rd.ReleaseVersion != null)
+                    releases.Add(rd);
                 
 
             }

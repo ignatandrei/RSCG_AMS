@@ -1,7 +1,7 @@
 ﻿using System;
 using AMS_Base;
-[assembly:VersionReleased(Name="JustReleaseDate",ISODateTime ="2022-03-31",recordData = RecordData.Branches)]
-[assembly: VersionReleased(Name = "WithVersion", ISODateTime = "2022-04-01", recordData = RecordData.Branches)]
+[assembly:VersionReleased(Name="PreviousReleases",ISODateTime ="2022-03-31",recordData = RecordData.Merges)]
+[assembly: VersionReleased(Name = "WithVersioning", ISODateTime = "2022-04-01", recordData = RecordData.Merges)]
 
 namespace AMSConsole
 {
@@ -28,9 +28,9 @@ namespace AMSConsole
                 foreach(var item in ams.Versions)
                 {
                     Console.WriteLine("release:"+item.Name);
-                    foreach(var branch in item.releaseDatas)
+                    foreach(var merge in item.releaseDatas)
                     {
-                        Console.WriteLine("=>branch:"+ branch.Subject);
+                        Console.WriteLine("=>merge:" + merge.Subject);
                     }
 
                 }
