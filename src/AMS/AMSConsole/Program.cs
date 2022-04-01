@@ -1,5 +1,6 @@
 ﻿using System;
 using AMS_Base;
+[assembly:VersionReleased(ISODateTime ="2022-04-01",recordData = RecordData.Branches)]
 
 namespace AMSConsole
 {

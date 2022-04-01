@@ -45,6 +45,8 @@ namespace AMS
         }
         public void Execute(GeneratorExecutionContext context)
         {
+            var q= context.Compilation.Assembly.GetAttributes();
+
             var data= TryGetPropertiesFromCSPROJ(context);
             //if(!context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.RootNamespace", out var nameSpace))
             var nameAssembly = context.Compilation.Assembly.Name;
@@ -126,7 +128,7 @@ namespace {nameAssembly} {{
 
         public void Initialize(GeneratorInitializationContext context)
         {
-            
+            context.RegisterForSyntaxNotifications(() => new SR());
         }
     }
 }
