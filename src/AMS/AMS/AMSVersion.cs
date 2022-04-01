@@ -218,7 +218,7 @@ namespace {nameAssembly} {{
             if ((gitMergeVersion?.Length ?? 0) == 0)
                 return gitMergeVersion;
 
-            gitMergeVersion = gitMergeVersion.Where(it => !it.Subject.StartsWith("into main")).ToArray();
+            //gitMergeVersion = gitMergeVersion.Where(it => !it.Subject.StartsWith("into main")).ToArray();
             return gitMergeVersion;
         }
         private string WhereGit()

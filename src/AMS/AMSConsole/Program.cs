@@ -25,6 +25,7 @@ namespace AMSConsole
                 Console.WriteLine($"{amsKV.Key}.{nameof(ams.Authors)} : {ams.Authors}");
                 Console.WriteLine($"{amsKV.Key}.{nameof(ams.Version)} : {ams.Version}");
                 Console.WriteLine("versions" + ams.Versions?.Length);
+                if(ams.Versions != null)
                 foreach(var item in ams.Versions)
                 {
                     Console.WriteLine("release:"+item.Name);
