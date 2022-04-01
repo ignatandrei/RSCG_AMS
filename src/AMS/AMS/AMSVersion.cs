@@ -43,10 +43,24 @@ namespace AMS
             }
 
         }
+        private VersionReleasedAttribute[] GetDates(GeneratorExecutionContext context)
+        {
+            //maybe get from class SR : ISyntaxReceiver ?
+            var verAttr = context.Compilation.Assembly.GetAttributes();
+            foreach(var attr in verAttr)
+            {
+                if(attr.AttributeClass.Name == nameof(VersionReleasedAttribute))
+                {
+                    var parameters = attr.NamedArguments;
+                    var s = 1;
+                }
+            }
+            return null;
+        }
         public void Execute(GeneratorExecutionContext context)
         {
-            var q= context.Compilation.Assembly.GetAttributes();
 
+            var releasesDates = GetDates(context);
             var data= TryGetPropertiesFromCSPROJ(context);
             //if(!context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.RootNamespace", out var nameSpace))
             var nameAssembly = context.Compilation.Assembly.Name;
@@ -128,7 +142,7 @@ namespace {nameAssembly} {{
 
         public void Initialize(GeneratorInitializationContext context)
         {
-            context.RegisterForSyntaxNotifications(() => new SR());
+            //context.RegisterForSyntaxNotifications(() => new SR());
         }
     }
 }
