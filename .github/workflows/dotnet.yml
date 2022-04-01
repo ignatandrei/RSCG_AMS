@@ -24,12 +24,12 @@ jobs:
         where.exe git.exe
         # git for-each-ref --format='%(committerdate:short) %00  %(authorname) %(refname) %(subject)' --sort=committerdate --merged=HEAD
         # git for-each-ref --sort=committerdate refs/heads/ --format='%(committerdate:short) %00 %(objectname) %(authorname) %(refname) %(subject)'
-        echo start git
+        echo start git1
         git for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)||%(refname)|%(subject)'
-        echo end git
-        echo start git
+        echo end git1
+        echo start git2
         git for-each-ref --sort=committerdate --format='%(authorname)|%(committerdate:short)|%(objectname)||%(refname)|%(subject)'
-        echo end git
+        echo end git2
         cd src 
         cd AMS
         dotnet restore
