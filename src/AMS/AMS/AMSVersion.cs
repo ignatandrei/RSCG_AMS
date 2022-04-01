@@ -78,11 +78,18 @@ namespace AMS
             }
             return versions.ToArray();
         }
+        private Diagnostic ReportDiagnosticFake(string message)
+        {
+            var dd = new DiagnosticDescriptor(message, nameof(ReportDiagnostic), message, message, DiagnosticSeverity.Warning, true);
+            var d = Diagnostic.Create(dd, Location.None, "csproj");
+            return d;
+            
+        }
         public void Execute(GeneratorExecutionContext context)
         {
 
             var releasesVersions = GetDates(context);
-            
+            context.ReportDiagnostic(ReportDiagnosticFake("number of releases" + releasesVersions?.Length));
             var data= TryGetPropertiesFromCSPROJ(context);
             //if(!context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.RootNamespace", out var nameSpace))
             var nameAssembly = context.Compilation.Assembly.Name;
@@ -96,8 +103,12 @@ namespace AMS
             var envGithub = Environment.GetEnvironmentVariable("GITHUB_JOB");
             if (ams == null && !string.IsNullOrWhiteSpace(envGithub))
             {
+                context.ReportDiagnostic(ReportDiagnosticFake("in github"));
+
                 ams = new AMSGitHub(context);
                 rd =ConstructVersionsGitHub(releasesVersions);
+                context.ReportDiagnostic(ReportDiagnosticFake("number of rd"+rd?.Length));
+
             }
             var envGitLab = Environment.GetEnvironmentVariable("CI_SERVER");
             if (ams == null && !string.IsNullOrWhiteSpace(envGitLab))
