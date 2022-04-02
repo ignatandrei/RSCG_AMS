@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
+[assembly: AMS_Base.VersionReleased(Name = "PreviousReleases", ISODateTime = "2022-03-31", recordData = AMS_Base.RecordData.Merges)]
+[assembly: AMS_Base.VersionReleased(Name = "WithVersioning", ISODateTime = "2022-04-02", recordData = AMS_Base.RecordData.Merges)]
+
 namespace AMSWebAPI
 {
 

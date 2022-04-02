@@ -11,14 +11,19 @@
     <!--<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />-->
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     
-    <PackageReference Include="AMSWebAPI" Version="2021.7.6.628" />
-    <PackageReference Include="AMS_Base" Version="2021.7.6.628" />
-    <PackageReference Include="RSCG_AMS" Version="2021.7.6.628" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    
+    <!--<PackageReference Include="AMSWebAPI" Version="2021.7.6.628" />-->
+    <!--<PackageReference Include="AMS_Base" Version="2021.7.6.628" />-->
+    <!--<PackageReference Include="RSCG_AMS" Version="2021.7.6.628" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />-->
+	  <ProjectReference Include="..\AMS\AMS.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+	  <ProjectReference Include="..\AMS_Base\AMS_Base.csproj" />
+	  <ProjectReference Include="..\AMSWebAPI\AMSWebAPI.csproj" />
   </ItemGroup>
 
-  <!--<ItemGroup>
-    <ProjectReference Include="..\AMSConsole\AMSConsole.csproj" />
-  </ItemGroup>-->
+	<PropertyGroup>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)GeneratedX</CompilerGeneratedFilesOutputPath>
+	</PropertyGroup>
 
 
 </Project>
