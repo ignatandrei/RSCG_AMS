@@ -99,7 +99,16 @@ namespace AMS
         public void Execute(GeneratorExecutionContext context)
         {
             generatorExecutionContext = context;
-            ExecuteInternal(context);
+            try
+            {
+                ExecuteInternal(context);
+            }
+            catch(Exception ex)
+            {
+                ReportDiagnosticFake("Error" + ex.Message);
+                ReportDiagnosticFake("stack trace"+ex.StackTrace);
+
+            }
         }
         [MethodImpl(MethodImplOptions.NoInlining)]
         private void ExecuteInternal(GeneratorExecutionContext context)
