@@ -82,6 +82,7 @@ namespace AMS
         private void ReportDiagnosticFake(string message)
         {
 
+            //return;
             generatorExecutionContext.ReportDiagnostic(Diagnostic.Create(
                     new DiagnosticDescriptor(
                         "AMS0001",
@@ -295,12 +296,12 @@ namespace {nameAssembly} {{
             
             List<ReleaseData> releases = new();
             string output = "";
-            int nr = 0;
+            //int nr = 0;
             //while (output.Length < 10 && nr < 5)
             {
                 output = "";
-                nr++;
-                ReportDiagnosticFake("starting " + nr);
+                //nr++;
+                //ReportDiagnosticFake("starting " + nr);
                 var p = new Process();
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardOutput = true;
