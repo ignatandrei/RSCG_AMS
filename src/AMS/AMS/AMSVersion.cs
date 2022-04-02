@@ -103,8 +103,13 @@ namespace AMS
         [MethodImpl(MethodImplOptions.NoInlining)]
         private void ExecuteInternal(GeneratorExecutionContext context)
         {
-        
 
+            var ass = context.Compilation.Assembly;
+            var file = ass.Locations
+                
+                .FirstOrDefault(it => it.Kind == LocationKind.SourceFile);
+            var pathRepo = file.SourceTree.FilePath;
+            pathRepo = Path.GetDirectoryName(pathRepo);
             var releasesVersions = GetDates(context);
             ReportDiagnosticFake("number of releases" + releasesVersions?.Length);
             var data= TryGetPropertiesFromCSPROJ(context);
@@ -113,9 +118,9 @@ namespace AMS
             
             var nameSpace = "AMS";
             AMSWithContext ams =null;
-            ReleaseData[] rd= null;
+            ReleaseData[] rdAll= null;
 
-            rd = ConstructVersionsGitHub(releasesVersions);
+            //rdAll = ConstructVersionsGitHub(releasesVersions,pathRepo);
 
             var envGithub = Environment.GetEnvironmentVariable("GITHUB_JOB");
             if (ams == null && !string.IsNullOrWhiteSpace(envGithub))
@@ -123,15 +128,15 @@ namespace AMS
                 ReportDiagnosticFake("in github");
 
                 ams = new AMSGitHub(context);
-                rd =ConstructVersionsGitHub(releasesVersions);
-                ReportDiagnosticFake("number of rd"+rd?.Length);
+                rdAll =ConstructVersionsGitHub(releasesVersions,pathRepo);
+                ReportDiagnosticFake("number of rd"+rdAll?.Length);
 
             }
             var envGitLab = Environment.GetEnvironmentVariable("CI_SERVER");
             if (ams == null && !string.IsNullOrWhiteSpace(envGitLab))
             {
                 ams = new AMSGitLab(context);
-                rd = ConstructVersionsGitLab(releasesVersions);
+                rdAll = ConstructVersionsGitLab(releasesVersions, pathRepo);
 
             }
             var envHeroku= Environment.GetEnvironmentVariable("DYNO");
@@ -158,10 +163,10 @@ namespace AMS
             ams.Authors = data.Authors;
             ams.Version = data.Version;
             //versioning
-            string versioning = $"//raw commits:{rd?.Length}";
-            if(rd != null)
+            string versioning = $"//raw commits:{rdAll?.Length}";
+            if(rdAll != null)
             {
-                var dict = rd.GroupBy(it => it.ReleaseVersion).ToDictionary(it => it.Key, it => it.ToArray());
+                var dict = rdAll.GroupBy(it => it.ReleaseVersion).ToDictionary(it => it.Key, it => it.ToArray());
                 
                 foreach (var item in dict)
                 {
@@ -231,18 +236,18 @@ namespace {nameAssembly} {{
 
         }
 
-        private ReleaseData[] ConstructVersionsGitLab(VersionReleasedAttribute[] releasesVersions)
+        private ReleaseData[] ConstructVersionsGitLab(VersionReleasedAttribute[] releasesVersions,string pathRepo)
         {
-            var gitMergeVersion = ConstructMergesVersionsGit( releasesVersions);
+            var gitMergeVersion = ConstructMergesVersionsGit( releasesVersions,pathRepo);
             if ((gitMergeVersion?.Length??0) == 0)
                 return gitMergeVersion;
 
             return gitMergeVersion;
         }
 
-        private ReleaseData[] ConstructVersionsGitHub(VersionReleasedAttribute[]  releasesVersions)
+        private ReleaseData[] ConstructVersionsGitHub(VersionReleasedAttribute[] releasesVersions,string pathRepo)
         {
-            var gitMergeVersion = ConstructMergesVersionsGit(releasesVersions);
+            var gitMergeVersion = ConstructMergesVersionsGit(releasesVersions,pathRepo);
             if ((gitMergeVersion?.Length ?? 0) == 0)
                 return gitMergeVersion;
 
@@ -283,15 +288,15 @@ namespace {nameAssembly} {{
             //Console.WriteLine("gitPath:" + gitPath);
 
         }
-        private ReleaseData[] ConstructMergesVersionsGit(VersionReleasedAttribute[] releasesVersions)
+        private ReleaseData[] ConstructMergesVersionsGit(VersionReleasedAttribute[] releasesVersions, string pathRepo)
         {
             if ((releasesVersions?.Length ?? 0) == 0)
                 return null;
-
+            
             List<ReleaseData> releases = new();
             string output = "";
             int nr = 0;
-            while (output.Length < 10 && nr < 5)
+            //while (output.Length < 10 && nr < 5)
             {
                 output = "";
                 nr++;
@@ -301,15 +306,15 @@ namespace {nameAssembly} {{
                 p.StartInfo.RedirectStandardOutput = true;
 
                 p.StartInfo.RedirectStandardError = true;
-                
+                p.StartInfo.WorkingDirectory = pathRepo;
                 p.StartInfo.FileName = WhereGit();
                 //p.StartInfo.Arguments = "for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
                 //p.StartInfo.Arguments = "for-each-ref --sort=committerdate --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
                 p.StartInfo.Arguments = @"log --merges --pretty=""%an|%cs|%H|%s""";
                 //p.StartInfo.Arguments = "log --merges --pretty=\"\"\"%an|%cs|%H|%s\"\"\" ";
                 p.OutputDataReceived += (s, e) => { output += e.Data + Environment.NewLine; };
-
-                p.Start();
+                p.ErrorDataReceived+= (s, e) => { ReportDiagnosticFake(e.Data); };
+                    p.Start();
                 p.BeginOutputReadLine();
 
                 p.WaitForExit();
