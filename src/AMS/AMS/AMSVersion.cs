@@ -130,7 +130,7 @@ namespace AMS
             AMSWithContext ams =null;
             ReleaseData[] rdAll= null;
 
-            //rdAll = ConstructVersionsGitHub(releasesVersions,pathRepo);
+            rdAll = ConstructVersionsGitHub(releasesVersions,pathRepo);
 
             var envGithub = Environment.GetEnvironmentVariable("GITHUB_JOB");
             if (ams == null && !string.IsNullOrWhiteSpace(envGithub))
@@ -268,6 +268,7 @@ namespace {nameAssembly} {{
         {
             var p = new Process();
             p.StartInfo.UseShellExecute = false;
+            p.StartInfo.CreateNoWindow = true;
             p.StartInfo.RedirectStandardOutput = true;
             switch (Environment.OSVersion.Platform)
             {
@@ -314,6 +315,7 @@ namespace {nameAssembly} {{
                 //ReportDiagnosticFake("starting " + nr);
                 var p = new Process();
                 p.StartInfo.UseShellExecute = false;
+                p.StartInfo.CreateNoWindow = true;
                 p.StartInfo.RedirectStandardOutput = true;
 
                 p.StartInfo.RedirectStandardError = true;

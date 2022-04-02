@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
-
 partial class ASMTemplate
 {
     StringBuilder sb = new StringBuilder();
@@ -11,6 +11,11 @@ partial class ASMTemplate
     public void WriteValue(int text)
     {
         sb.AppendLine(""+text);
+    }   
+    public void WriteValue(int? text)
+    {
+        if(text != null)
+            sb.AppendLine("" + text);
     }
     public void WriteValue(DateTime text)
     {
@@ -21,8 +26,8 @@ partial class ASMTemplate
         sb.AppendLine(text);
     }
     public string Render()
-    {
-        this.RenderCore();
-        return sb.ToString();
+    {         
+        this.RenderCore(); 
+        return sb.ToString(); 
     }
-}
+} 

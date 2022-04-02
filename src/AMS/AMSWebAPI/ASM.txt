@@ -63,20 +63,22 @@ foreach(var dateIn in AMS_Base.AboutMySoftware.Dates ){
 <th>Component</th>
 <th>Date</th>
 <th>CI Build</th>
-<th>Project</th>
+<th>Project/Releases</th>
 <SC>
 </tr>
-
+{%~
+var defs=System.Linq.Enumerable.ToArray(System.Linq.Enumerable.OrderByDescending(AMS_Base.AboutMySoftware.AllDefinitions,it=>it.Value.DateGenerated ));
+%}
 {%~ i=1; ~%}
-{%~ foreach(var item in AMS_Base.AboutMySoftware.AllDefinitions){
+{%~ foreach(var item in defs){
 
 var color = ColorForDates[item.Value.DateGenerated.Date];
 %}
 <tr>
-<td>{% i++ %}</td>
-<td>{% item.Key %} </td>
-<td   style='color:{% color %}'>{% item.Value.DateGenerated %}  </td>
-<td>
+<td valign="top">{% i++ %}</td>
+<td valign="top">{% item.Key %} </td>
+<td valign="top"  style='color:{% color %}'>{% item.Value.DateGenerated %}  </td>
+<td valign="top">
 SourceControl : {% item.Value.CISourceControl %}
 <br />
 Commit : <a href='{% item.Value.SourceCommit %}' target='_blank'> {% item.Value.CommitId %}</a> 
@@ -85,12 +87,74 @@ Repo :<a href='{% item.Value.RepoUrl  %}' target='_blank'> {% item.Value.RepoUrl
 <br />
 User : {% item.Value.User %} </a> 
 </td>
+<td valign="top">
+{%~ if ((item.Value.Version??"").Length > 0) { %}
+Version: {% item.Value.Version  %} 
+{%~ } %}
+{%~ if ((item.Value.Authors  ??"").Length > 0) { %}
+Authors: {% item.Value.Authors  %} 
+{%~ } %}
+{%
+if((item.Value.Versions?.Length??0)>0) {
+var vers=System.Linq.Enumerable.ToArray(System.Linq.Enumerable.OrderByDescending(item.Value.Versions,it=>it.ISODateTime ));
+
+%}
+Versions {% vers.Length %}
+<table>
+<tr>
+<th>Nr</td>
+<th>Name/Date</th>
+<th>Details</th>
+</tr>
+
+{%~ int verNr=1; ~%}
+
+{%~ foreach(var ver in vers){ 
+%}
+<tr>
+<td valign="top">{% (i-1) %}.{% verNr++ %}</td>
+<td valign="top">
+<b>{% ver.Name %}</b> at {% ver.ISODateTime.ToString("dd MMM yyyy") %}
+</td>
 <td>
-Version: {% item.Value.Version  %} <br />
-Authors: {% item.Value.Authors  %}
+{%~ if((ver.releaseDatas?.Length??0)>0) { 
+
+var rdAll=System.Linq.Enumerable.ToArray(System.Linq.Enumerable.OrderByDescending(ver.releaseDatas,it=>it.ReleaseDate ));
+int rdNr = 1;
+%}
+<table>
+<tr>
+<th>Nr</th>
+<th>Details</th>
+<th>CommitId</th>
+
+{%~ foreach(var rdItem in rdAll) { %}
+<tr>
+<td valign="top">{% (i-1) %}.{% (verNr-1) %}.{% rdNr++ %}</td>
+<td valign="top">Made by <b> {% rdItem.Author %} </b> on {% rdItem.ReleaseDate.ToString("dd MMM yyyy") %} with text
+<br /><i>
+{% rdItem.Subject %}</i>
+</td>
+<td valign="top">{% rdItem.CommitId %}</td>
+</tr>
+{%~  }; %}
+
+
+</table>
+
+{%~  } %}
 </td>
 </tr>
-{% } %}
+
+{%~ }; %}
+
+</table>
+
+{%~ 
+};
+};
+%}
+
 </table>
 
 <p>
