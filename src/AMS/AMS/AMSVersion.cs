@@ -105,7 +105,7 @@ namespace AMS
             }
             catch(Exception ex)
             {
-                ReportDiagnosticFake("Error" + ex.Message);
+                ReportDiagnosticFake("!!!Error!!!" + ex.Message);
                 ReportDiagnosticFake("stack trace"+ex.StackTrace);
 
             }
@@ -274,16 +274,17 @@ namespace {nameAssembly} {{
                 case PlatformID.Win32NT:
                 case PlatformID.Win32Windows:
                     p.StartInfo.FileName = "where.exe";
+                    p.StartInfo.Arguments = "git.exe";
                     break;
                 case PlatformID.Unix:
                 case PlatformID.MacOSX:
                     p.StartInfo.FileName = "which";
+                    p.StartInfo.Arguments = "git";
                     break;
                 default:
                     throw new ArgumentException("platform " + Environment.OSVersion.Platform);
             }
 
-            p.StartInfo.Arguments = "git.exe";
             string output = "";
             p.OutputDataReceived += (s, e) => { output += e.Data + Environment.NewLine; };
             p.Start();
