@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Xml;
 
 namespace AMS
@@ -78,32 +79,65 @@ namespace AMS
             }
             return versions.ToArray();
         }
-        public void Execute(GeneratorExecutionContext context)
+        private void ReportDiagnosticFake(string message)
         {
 
+            //return;
+            generatorExecutionContext.ReportDiagnostic(Diagnostic.Create(
+                    new DiagnosticDescriptor(
+                        "AMS0001",
+                        "An warning by AMS generator",
+                        "-->{0}<--",
+                        "AMSGenerator",
+                        DiagnosticSeverity.Warning,
+                        isEnabledByDefault: true),
+                    Location.None,
+                    message ));
+
+        }
+        private GeneratorExecutionContext generatorExecutionContext;
+        public void Execute(GeneratorExecutionContext context)
+        {
+            generatorExecutionContext = context;
+            ExecuteInternal(context);
+        }
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private void ExecuteInternal(GeneratorExecutionContext context)
+        {
+
+            var ass = context.Compilation.Assembly;
+            var file = ass.Locations
+                
+                .FirstOrDefault(it => it.Kind == LocationKind.SourceFile);
+            var pathRepo = file.SourceTree.FilePath;
+            pathRepo = Path.GetDirectoryName(pathRepo);
             var releasesVersions = GetDates(context);
-            
+            ReportDiagnosticFake("number of releases" + releasesVersions?.Length);
             var data= TryGetPropertiesFromCSPROJ(context);
             //if(!context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.RootNamespace", out var nameSpace))
             var nameAssembly = context.Compilation.Assembly.Name;
             
             var nameSpace = "AMS";
             AMSWithContext ams =null;
-            ReleaseData[] rd= null;
+            ReleaseData[] rdAll= null;
 
-            //rd = ConstructVersionsGitHub(releasesVersions);
+            //rdAll = ConstructVersionsGitHub(releasesVersions,pathRepo);
 
             var envGithub = Environment.GetEnvironmentVariable("GITHUB_JOB");
             if (ams == null && !string.IsNullOrWhiteSpace(envGithub))
             {
+                ReportDiagnosticFake("in github");
+
                 ams = new AMSGitHub(context);
-                rd =ConstructVersionsGitHub(releasesVersions);
+                rdAll =ConstructVersionsGitHub(releasesVersions,pathRepo);
+                ReportDiagnosticFake("number of rd"+rdAll?.Length);
+
             }
             var envGitLab = Environment.GetEnvironmentVariable("CI_SERVER");
             if (ams == null && !string.IsNullOrWhiteSpace(envGitLab))
             {
                 ams = new AMSGitLab(context);
-                rd = ConstructVersionsGitLab(releasesVersions);
+                rdAll = ConstructVersionsGitLab(releasesVersions, pathRepo);
 
             }
             var envHeroku= Environment.GetEnvironmentVariable("DYNO");
@@ -130,10 +164,10 @@ namespace AMS
             ams.Authors = data.Authors;
             ams.Version = data.Version;
             //versioning
-            string versioning = $"//raw commits:{rd?.Length}";
-            if(rd != null)
+            string versioning = $"//raw commits:{rdAll?.Length}";
+            if(rdAll != null)
             {
-                var dict = rd.GroupBy(it => it.ReleaseVersion).ToDictionary(it => it.Key, it => it.ToArray());
+                var dict = rdAll.GroupBy(it => it.ReleaseVersion).ToDictionary(it => it.Key, it => it.ToArray());
                 
                 foreach (var item in dict)
                 {
@@ -203,18 +237,18 @@ namespace {nameAssembly} {{
 
         }
 
-        private ReleaseData[] ConstructVersionsGitLab(VersionReleasedAttribute[] releasesVersions)
+        private ReleaseData[] ConstructVersionsGitLab(VersionReleasedAttribute[] releasesVersions,string pathRepo)
         {
-            var gitMergeVersion = ConstructMergesVersionsGit( releasesVersions);
+            var gitMergeVersion = ConstructMergesVersionsGit( releasesVersions,pathRepo);
             if ((gitMergeVersion?.Length??0) == 0)
                 return gitMergeVersion;
 
             return gitMergeVersion;
         }
 
-        private ReleaseData[] ConstructVersionsGitHub(VersionReleasedAttribute[]  releasesVersions)
+        private ReleaseData[] ConstructVersionsGitHub(VersionReleasedAttribute[] releasesVersions,string pathRepo)
         {
-            var gitMergeVersion = ConstructMergesVersionsGit(releasesVersions);
+            var gitMergeVersion = ConstructMergesVersionsGit(releasesVersions,pathRepo);
             if ((gitMergeVersion?.Length ?? 0) == 0)
                 return gitMergeVersion;
 
@@ -249,30 +283,51 @@ namespace {nameAssembly} {{
             p.WaitForExit();
             output += Environment.NewLine;
             var gitPath = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).First();
+            ReportDiagnosticFake("gitpath:" + gitPath);
+            ReportDiagnosticFake("gitpath length" + gitPath.Length);
             return gitPath;
             //Console.WriteLine("gitPath:" + gitPath);
 
         }
-        private ReleaseData[] ConstructMergesVersionsGit(VersionReleasedAttribute[] releasesVersions)
+        private ReleaseData[] ConstructMergesVersionsGit(VersionReleasedAttribute[] releasesVersions, string pathRepo)
         {
             if ((releasesVersions?.Length ?? 0) == 0)
                 return null;
-
-            List<ReleaseData> releases = new();
-            var p = new Process();
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.FileName = WhereGit();
-            //p.StartInfo.Arguments = "for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
-            //p.StartInfo.Arguments = "for-each-ref --sort=committerdate --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
-            p.StartInfo.Arguments = "log --merges --pretty='%an|%cs|%H|%s'";
-            string output = "";
-            p.OutputDataReceived += (s, e) => { output += e.Data + Environment.NewLine; };
-            p.Start();
             
-            p.BeginOutputReadLine();
-            p.WaitForExit();
-            foreach(var line in output.Split(new[] { Environment.NewLine },StringSplitOptions.RemoveEmptyEntries))
+            List<ReleaseData> releases = new();
+            string output = "";
+            //int nr = 0;
+            //while (output.Length < 10 && nr < 5)
+            {
+                output = "";
+                //nr++;
+                //ReportDiagnosticFake("starting " + nr);
+                var p = new Process();
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true;
+
+                p.StartInfo.RedirectStandardError = true;
+                p.StartInfo.WorkingDirectory = pathRepo;
+                p.StartInfo.FileName = WhereGit();
+                //p.StartInfo.Arguments = "for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
+                //p.StartInfo.Arguments = "for-each-ref --sort=committerdate --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
+                p.StartInfo.Arguments = @"log --merges --pretty=""%an|%cs|%H|%s""";
+                //p.StartInfo.Arguments = "log --merges --pretty=\"\"\"%an|%cs|%H|%s\"\"\" ";
+                p.OutputDataReceived += (s, e) => { output += e.Data + Environment.NewLine; };
+                p.ErrorDataReceived+= (s, e) => { ReportDiagnosticFake(e.Data); };
+                    p.Start();
+                p.BeginOutputReadLine();
+
+                p.WaitForExit();
+                ReportDiagnosticFake("output length" + output.Length);
+                ReportDiagnosticFake("output " + output);
+
+            }
+
+
+            var arr = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            ReportDiagnosticFake("arr length" + arr.Length);
+            foreach (var line in arr )
             {
                 var arrData = line.Split(new[] { '|' },StringSplitOptions.RemoveEmptyEntries);
                 var rd = new ReleaseData();
@@ -284,7 +339,9 @@ namespace {nameAssembly} {{
                     .OrderBy(it=>it.MyDateTime())
                     .FirstOrDefault(it => it.MyDateTime().Date >=rd.ReleaseDate)
                     ?.Version();
-                if(rd.ReleaseVersion != null)
+                ReportDiagnosticFake("line " + rd.ReleaseVersion?.Name);
+
+                if (rd.ReleaseVersion != null)
                     releases.Add(rd);
                 
 
@@ -295,7 +352,7 @@ namespace {nameAssembly} {{
 
         public void Initialize(GeneratorInitializationContext context)
         {
-            //context.RegisterForSyntaxNotifications(() => new SR());
+            context.RegisterForSyntaxNotifications(() => new SR());
         }
     }
 }

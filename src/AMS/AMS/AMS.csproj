@@ -4,10 +4,20 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>9.0</LangVersion>   
     <IsPackable>true</IsPackable>
-    <IsRoslynComponent>true</IsRoslynComponent>
+    <IsRoslynComponent>true</IsRoslynComponent>	  
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\AMS_Base\AboutMySoftware.cs" Link="Links\AboutMySoftware.cs" />
+    <Compile Include="..\AMS_Base\AMS.cs" Link="Links\AMS.cs" />
+    <Compile Include="..\AMS_Base\RecordData.cs" Link="Links\RecordData.cs" />
+    <Compile Include="..\AMS_Base\ReleaseData.cs" Link="Links\ReleaseData.cs" />
+    <Compile Include="..\AMS_Base\VersionReleased.cs" Link="Links\VersionReleased.cs" />
+    <Compile Include="..\AMS_Base\VersionReleasedAttribute.cs" Link="Links\VersionReleasedAttribute.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -25,10 +35,15 @@
     <None Include="$(OutputPath)\AMS_Base.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
 
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AMS_Base\AMS_Base.csproj" />
-  </ItemGroup>
-  <PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Links\" />
+	</ItemGroup>
+
+	<PropertyGroup>
     <Version>2021.6.26.724</Version>
     <PackageVersion>2021.6.26.724</PackageVersion>
     <Authors>Andrei Ignat</Authors>
