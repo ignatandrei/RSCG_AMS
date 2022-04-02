@@ -9,9 +9,9 @@ partial class ASMTemplate
         sb.AppendLine(text);
     }
     public void WriteValue(int text)
-    {     
+    {
         sb.AppendLine(""+text);
-    }
+    }   
     public void WriteValue(int? text)
     {
         if(text != null)

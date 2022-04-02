@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 [assembly: AMS_Base.VersionReleased(Name = "PreviousReleases", ISODateTime = "2022-03-31", recordData = AMS_Base.RecordData.Merges)]
+//[assembly: AMS_Base.VersionReleased(Name = "WithVersioning", ISODateTime = "2022-04-01", recordData = AMS_Base.RecordData.Merges)]
 [assembly: AMS_Base.VersionReleased(Name = "WithVersioning", ISODateTime = "2022-04-02", recordData = AMS_Base.RecordData.Merges)]
 
 namespace AMSWebAPIVerif

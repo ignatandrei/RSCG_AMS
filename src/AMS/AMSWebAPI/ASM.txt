@@ -75,10 +75,10 @@ var defs=System.Linq.Enumerable.ToArray(System.Linq.Enumerable.OrderByDescending
 var color = ColorForDates[item.Value.DateGenerated.Date];
 %}
 <tr>
-<td>{% i++ %}</td>
-<td>{% item.Key %} </td>
-<td   style='color:{% color %}'>{% item.Value.DateGenerated %}  </td>
-<td>
+<td valign="top">{% i++ %}</td>
+<td valign="top">{% item.Key %} </td>
+<td valign="top"  style='color:{% color %}'>{% item.Value.DateGenerated %}  </td>
+<td valign="top">
 SourceControl : {% item.Value.CISourceControl %}
 <br />
 Commit : <a href='{% item.Value.SourceCommit %}' target='_blank'> {% item.Value.CommitId %}</a> 
@@ -87,7 +87,7 @@ Repo :<a href='{% item.Value.RepoUrl  %}' target='_blank'> {% item.Value.RepoUrl
 <br />
 User : {% item.Value.User %} </a> 
 </td>
-<td>
+<td valign="top">
 {%~ if ((item.Value.Version??"").Length > 0) { %}
 Version: {% item.Value.Version  %} 
 {%~ } %}
@@ -99,11 +99,11 @@ if((item.Value.Versions?.Length??0)>0) {
 var vers=System.Linq.Enumerable.ToArray(System.Linq.Enumerable.OrderByDescending(item.Value.Versions,it=>it.ISODateTime ));
 
 %}
+Versions {% vers.Length %}
 <table>
 <tr>
 <th>Nr</td>
-<th>Name</th>
-<th>Date</th>
+<th>Name/Date</th>
 <th>Details</th>
 </tr>
 
@@ -112,15 +112,9 @@ var vers=System.Linq.Enumerable.ToArray(System.Linq.Enumerable.OrderByDescending
 {%~ foreach(var ver in vers){ 
 %}
 <tr>
-<td>
-{% verNr++ %}
-</td>
-<td>
-{% ver.Name %}
-</td>
-
-<td>
-{% ver.ISODateTime %}
+<td valign="top">{% (i-1) %}.{% verNr++ %}</td>
+<td valign="top">
+<b>{% ver.Name %}</b> at {% ver.ISODateTime.ToString("dd MMM yyyy") %}
 </td>
 <td>
 {%~ if((ver.releaseDatas?.Length??0)>0) { 
@@ -133,8 +127,20 @@ int rdNr = 1;
 <th>Nr</th>
 <th>Details</th>
 <th>CommitId</th>
-</table>
 
+{%~ foreach(var rdItem in rdAll) { %}
+<tr>
+<td valign="top">{% (i-1) %}.{% (verNr-1) %}.{% rdNr++ %}</td>
+<td valign="top">Made by <b> {% rdItem.Author %} </b> on {% rdItem.ReleaseDate.ToString("dd MMM yyyy") %} with text
+<br /><i>
+{% rdItem.Subject %}</i>
+</td>
+<td valign="top">{% rdItem.CommitId %}</td>
+</tr>
+{%~  }; %}
+
+
+</table>
 
 {%~  } %}
 </td>
