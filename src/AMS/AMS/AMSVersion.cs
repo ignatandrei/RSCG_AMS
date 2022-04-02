@@ -289,22 +289,31 @@ namespace {nameAssembly} {{
                 return null;
 
             List<ReleaseData> releases = new();
-            var p = new Process();
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.FileName = WhereGit();
-            //p.StartInfo.Arguments = "for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
-            //p.StartInfo.Arguments = "for-each-ref --sort=committerdate --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
-            p.StartInfo.Arguments = @"log --merges --pretty=""%an|%cs|%H|%s""";
-            //p.StartInfo.Arguments = "log --merges --pretty=\"\"\"%an|%cs|%H|%s\"\"\" ";
             string output = "";
-            p.OutputDataReceived += (s, e) => { output += e.Data + Environment.NewLine; };
-            p.Start();
-            
-            p.BeginOutputReadLine();
-            p.WaitForExit();
-            ReportDiagnosticFake("output length" + output.Length);
-            ReportDiagnosticFake("output " + output);
+            int nr = 0;
+            while (output.Length < 10 && nr < 5)
+            {
+                nr++;
+                ReportDiagnosticFake("starting " + nr);
+                var p = new Process();
+                p.StartInfo.UseShellExecute = false;
+                p.StartInfo.RedirectStandardOutput = true;
+                p.StartInfo.FileName = WhereGit();
+                //p.StartInfo.Arguments = "for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
+                //p.StartInfo.Arguments = "for-each-ref --sort=committerdate --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
+                p.StartInfo.Arguments = @"log --merges --pretty=""%an|%cs|%H|%s""";
+                //p.StartInfo.Arguments = "log --merges --pretty=\"\"\"%an|%cs|%H|%s\"\"\" ";
+                p.OutputDataReceived += (s, e) => { output += e.Data + Environment.NewLine; };
+
+                p.Start();
+                p.BeginOutputReadLine();
+
+                p.WaitForExit();
+                ReportDiagnosticFake("output length" + output.Length);
+                ReportDiagnosticFake("output " + output);
+
+            }
+
 
             var arr = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             ReportDiagnosticFake("arr length" + arr.Length);
