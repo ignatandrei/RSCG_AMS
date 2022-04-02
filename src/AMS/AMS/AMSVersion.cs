@@ -79,10 +79,10 @@ namespace AMS
             }
             return versions.ToArray();
         }
-        private void ReportDiagnosticFake(string message, GeneratorExecutionContext context)
+        private void ReportDiagnosticFake(string message)
         {
 
-            context.ReportDiagnostic(Diagnostic.Create(
+            generatorExecutionContext.ReportDiagnostic(Diagnostic.Create(
                     new DiagnosticDescriptor(
                         "AMS0001",
                         "An warning by AMS generator",
@@ -94,9 +94,10 @@ namespace AMS
                     message));
 
         }
+        private GeneratorExecutionContext generatorExecutionContext;
         public void Execute(GeneratorExecutionContext context)
         {
-            
+            generatorExecutionContext = context;
             ExecuteInternal(context);
         }
         [MethodImpl(MethodImplOptions.NoInlining)]
@@ -105,7 +106,7 @@ namespace AMS
         
 
             var releasesVersions = GetDates(context);
-            ReportDiagnosticFake("number of releases" + releasesVersions?.Length, context);
+            ReportDiagnosticFake("number of releases" + releasesVersions?.Length);
             var data= TryGetPropertiesFromCSPROJ(context);
             //if(!context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.RootNamespace", out var nameSpace))
             var nameAssembly = context.Compilation.Assembly.Name;
@@ -119,11 +120,11 @@ namespace AMS
             var envGithub = Environment.GetEnvironmentVariable("GITHUB_JOB");
             if (ams == null && !string.IsNullOrWhiteSpace(envGithub))
             {
-                ReportDiagnosticFake("in github", context);
+                ReportDiagnosticFake("in github");
 
                 ams = new AMSGitHub(context);
                 rd =ConstructVersionsGitHub(releasesVersions);
-                ReportDiagnosticFake("number of rd"+rd?.Length, context);
+                ReportDiagnosticFake("number of rd"+rd?.Length);
 
             }
             var envGitLab = Environment.GetEnvironmentVariable("CI_SERVER");
@@ -276,6 +277,7 @@ namespace {nameAssembly} {{
             p.WaitForExit();
             output += Environment.NewLine;
             var gitPath = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).First();
+            ReportDiagnosticFake("gitpath:" + gitPath);
             return gitPath;
             //Console.WriteLine("gitPath:" + gitPath);
 
@@ -299,7 +301,11 @@ namespace {nameAssembly} {{
             
             p.BeginOutputReadLine();
             p.WaitForExit();
-            foreach(var line in output.Split(new[] { Environment.NewLine },StringSplitOptions.RemoveEmptyEntries))
+            ReportDiagnosticFake("output length" + output.Length);
+
+            var arr = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            ReportDiagnosticFake("arr length" + arr.Length);
+            foreach (var line in arr )
             {
                 var arrData = line.Split(new[] { '|' },StringSplitOptions.RemoveEmptyEntries);
                 var rd = new ReleaseData();
@@ -311,7 +317,9 @@ namespace {nameAssembly} {{
                     .OrderBy(it=>it.MyDateTime())
                     .FirstOrDefault(it => it.MyDateTime().Date >=rd.ReleaseDate)
                     ?.Version();
-                if(rd.ReleaseVersion != null)
+                ReportDiagnosticFake("line " + rd.ReleaseVersion?.Name);
+
+                if (rd.ReleaseVersion != null)
                     releases.Add(rd);
                 
 
