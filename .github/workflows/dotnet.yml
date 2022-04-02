@@ -63,10 +63,10 @@ jobs:
         dotnet clean  
         dotnet build
         echo 'now pack'
-        dotnet pack AMS_Base/AMS_Base.csproj   -o nugetPackages    --no-build --include-symbols --include-source 
-        dotnet pack AMS/AMS.csproj   -o nugetPackages   --no-build --include-symbols --include-source
-        dotnet pack AMSWebAPI/AMSWebAPI.csproj  -o nugetPackages --no-build --include-symbols --include-source
-        
+        dotnet pack AMS_Base/AMS_Base.csproj    -o nugetPackages  --include-symbols --include-source 
+        dotnet pack AMS/AMS.csproj              -o nugetPackages  --include-symbols --include-source
+        dotnet pack AMSWebAPI/AMSWebAPI.csproj  -o nugetPackages  --include-symbols --include-source
+
 
     - name: 'Upload nuget'
       if: ${{ github.ref == 'refs/heads/main' }}
