@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Xml;
 
 namespace AMS
@@ -78,18 +79,33 @@ namespace AMS
             }
             return versions.ToArray();
         }
-        private Diagnostic ReportDiagnosticFake(string message)
+        private void ReportDiagnosticFake(string message, GeneratorExecutionContext context)
         {
-            var dd = new DiagnosticDescriptor(message, nameof(ReportDiagnostic), message, message, DiagnosticSeverity.Warning, true);
-            var d = Diagnostic.Create(dd, Location.None, "csproj");
-            return d;
-            
+
+            context.ReportDiagnostic(Diagnostic.Create(
+                    new DiagnosticDescriptor(
+                        "AMS0001",
+                        "An warning by AMS generator",
+                        "{0}",
+                        "AMSGenerator",
+                        DiagnosticSeverity.Warning,
+                        isEnabledByDefault: true),
+                    Location.None,
+                    message));
+
         }
         public void Execute(GeneratorExecutionContext context)
         {
+            
+            ExecuteInternal(context);
+        }
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private void ExecuteInternal(GeneratorExecutionContext context)
+        {
+        
 
             var releasesVersions = GetDates(context);
-            context.ReportDiagnostic(ReportDiagnosticFake("number of releases" + releasesVersions?.Length));
+            ReportDiagnosticFake("number of releases" + releasesVersions?.Length, context);
             var data= TryGetPropertiesFromCSPROJ(context);
             //if(!context.AnalyzerConfigOptions.GlobalOptions.TryGetValue("build_property.RootNamespace", out var nameSpace))
             var nameAssembly = context.Compilation.Assembly.Name;
@@ -103,11 +119,11 @@ namespace AMS
             var envGithub = Environment.GetEnvironmentVariable("GITHUB_JOB");
             if (ams == null && !string.IsNullOrWhiteSpace(envGithub))
             {
-                context.ReportDiagnostic(ReportDiagnosticFake("in github"));
+                ReportDiagnosticFake("in github", context);
 
                 ams = new AMSGitHub(context);
                 rd =ConstructVersionsGitHub(releasesVersions);
-                context.ReportDiagnostic(ReportDiagnosticFake("number of rd"+rd?.Length));
+                ReportDiagnosticFake("number of rd"+rd?.Length, context);
 
             }
             var envGitLab = Environment.GetEnvironmentVariable("CI_SERVER");
@@ -306,7 +322,7 @@ namespace {nameAssembly} {{
 
         public void Initialize(GeneratorInitializationContext context)
         {
-            //context.RegisterForSyntaxNotifications(() => new SR());
+            context.RegisterForSyntaxNotifications(() => new SR());
         }
     }
 }
