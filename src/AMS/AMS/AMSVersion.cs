@@ -86,12 +86,12 @@ namespace AMS
                     new DiagnosticDescriptor(
                         "AMS0001",
                         "An warning by AMS generator",
-                        "{0}",
+                        "-->{0}<--",
                         "AMSGenerator",
                         DiagnosticSeverity.Warning,
                         isEnabledByDefault: true),
                     Location.None,
-                    message));
+                    message ));
 
         }
         private GeneratorExecutionContext generatorExecutionContext;
@@ -115,7 +115,7 @@ namespace AMS
             AMSWithContext ams =null;
             ReleaseData[] rd= null;
 
-            //rd = ConstructVersionsGitHub(releasesVersions);
+            rd = ConstructVersionsGitHub(releasesVersions);
 
             var envGithub = Environment.GetEnvironmentVariable("GITHUB_JOB");
             if (ams == null && !string.IsNullOrWhiteSpace(envGithub))
@@ -278,6 +278,7 @@ namespace {nameAssembly} {{
             output += Environment.NewLine;
             var gitPath = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).First();
             ReportDiagnosticFake("gitpath:" + gitPath);
+            ReportDiagnosticFake("gitpath length" + gitPath.Length);
             return gitPath;
             //Console.WriteLine("gitPath:" + gitPath);
 
@@ -295,6 +296,7 @@ namespace {nameAssembly} {{
             //p.StartInfo.Arguments = "for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
             //p.StartInfo.Arguments = "for-each-ref --sort=committerdate --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
             p.StartInfo.Arguments = @"log --merges --pretty=""%an|%cs|%H|%s""";
+            //p.StartInfo.Arguments = "log --merges --pretty=\"\"\"%an|%cs|%H|%s\"\"\" ";
             string output = "";
             p.OutputDataReceived += (s, e) => { output += e.Data + Environment.NewLine; };
             p.Start();
