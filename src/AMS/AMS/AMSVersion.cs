@@ -293,6 +293,7 @@ namespace {nameAssembly} {{
             int nr = 0;
             while (output.Length < 10 && nr < 5)
             {
+                output = "";
                 nr++;
                 ReportDiagnosticFake("starting " + nr);
                 var p = new Process();
