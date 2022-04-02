@@ -63,7 +63,7 @@ foreach(var dateIn in AMS_Base.AboutMySoftware.Dates ){
 <th>Component</th>
 <th>Date</th>
 <th>CI Build</th>
-<th>Project</th>
+<th>Project/Releases</th>
 <SC>
 </tr>
 {%~
@@ -88,23 +88,67 @@ Repo :<a href='{% item.Value.RepoUrl  %}' target='_blank'> {% item.Value.RepoUrl
 User : {% item.Value.User %} </a> 
 </td>
 <td>
-
-Version: {% item.Value.Version  %} <br />
-Authors: {% item.Value.Authors  %} <br />
-Versions: {% item.Value.Versions?.Length %}
-
+{%~ if ((item.Value.Version??"").Length > 0) { %}
+Version: {% item.Value.Version  %} 
+{%~ } %}
+{%~ if ((item.Value.Authors  ??"").Length > 0) { %}
+Authors: {% item.Value.Authors  %} 
+{%~ } %}
 {%
+if((item.Value.Versions?.Length??0)>0) {
 var vers=System.Linq.Enumerable.ToArray(System.Linq.Enumerable.OrderByDescending(item.Value.Versions,it=>it.ISODateTime ));
 
 %}
-{%~ foreach(var ver in vers){ %}
+<table>
+<tr>
+<th>Nr</td>
+<th>Name</th>
+<th>Date</th>
+<th>Details</th>
+</tr>
 
+{%~ int verNr=1; ~%}
+
+{%~ foreach(var ver in vers){ 
+%}
+<tr>
+<td>
+{% verNr++ %}
+</td>
+<td>
+{% ver.Name %}
+</td>
+
+<td>
 {% ver.ISODateTime %}
-{% } %}
+</td>
+<td>
+{%~ if((ver.releaseDatas?.Length??0)>0) { 
 
+var rdAll=System.Linq.Enumerable.ToArray(System.Linq.Enumerable.OrderByDescending(ver.releaseDatas,it=>it.ReleaseDate ));
+int rdNr = 1;
+%}
+<table>
+<tr>
+<th>Nr</th>
+<th>Details</th>
+<th>CommitId</th>
+</table>
+
+
+{%~  } %}
 </td>
 </tr>
-{% } %}
+
+{%~ }; %}
+
+</table>
+
+{%~ 
+};
+};
+%}
+
 </table>
 
 <p>

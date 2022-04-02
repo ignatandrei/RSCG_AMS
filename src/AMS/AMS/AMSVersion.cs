@@ -268,6 +268,7 @@ namespace {nameAssembly} {{
         {
             var p = new Process();
             p.StartInfo.UseShellExecute = false;
+            p.StartInfo.CreateNoWindow = true;
             p.StartInfo.RedirectStandardOutput = true;
             switch (Environment.OSVersion.Platform)
             {
@@ -314,6 +315,7 @@ namespace {nameAssembly} {{
                 //ReportDiagnosticFake("starting " + nr);
                 var p = new Process();
                 p.StartInfo.UseShellExecute = false;
+                p.StartInfo.CreateNoWindow = true;
                 p.StartInfo.RedirectStandardOutput = true;
 
                 p.StartInfo.RedirectStandardError = true;
