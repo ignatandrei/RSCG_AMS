@@ -82,7 +82,7 @@ namespace AMS
         private void ReportDiagnosticFake(string message)
         {
 
-            //return;
+            return;
             generatorExecutionContext.ReportDiagnostic(Diagnostic.Create(
                     new DiagnosticDescriptor(
                         "AMS0001",
