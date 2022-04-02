@@ -33,8 +33,8 @@
     <ProjectReference Include="..\AMS_Base\AMS_Base.csproj" />
   </ItemGroup>
   <PropertyGroup>
-    <Version>2022.4.2.1911</Version>
-    <PackageVersion>2022.4.2.1911</PackageVersion>
+    <Version>2022.4.2.2201</Version>
+    <PackageVersion>2022.4.2.2201</PackageVersion>
     <Authors>Andrei Ignat</Authors>
     <PackageId>AMSWebAPI</PackageId>
     <Description>This package lets you show the commit , date , and more for your software . </Description>
