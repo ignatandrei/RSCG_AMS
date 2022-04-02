@@ -8,8 +8,8 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
-    # runs-on: ubuntu-latest
+    # runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -21,7 +21,8 @@ jobs:
         dotnet-version: 5.0.x
     - name: test run
       run: |
-        where.exe git.exe
+        # where.exe git.exe
+        which git
         echo start git0
         git log --merges --pretty='%an|%cs|%H|%s'
         echo end git0
