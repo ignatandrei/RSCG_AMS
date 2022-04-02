@@ -66,9 +66,11 @@ foreach(var dateIn in AMS_Base.AboutMySoftware.Dates ){
 <th>Project</th>
 <SC>
 </tr>
-
+{%~
+var defs=System.Linq.Enumerable.ToArray(System.Linq.Enumerable.OrderByDescending(AMS_Base.AboutMySoftware.AllDefinitions,it=>it.Value.DateGenerated ));
+%}
 {%~ i=1; ~%}
-{%~ foreach(var item in AMS_Base.AboutMySoftware.AllDefinitions){
+{%~ foreach(var item in defs){
 
 var color = ColorForDates[item.Value.DateGenerated.Date];
 %}
@@ -86,8 +88,20 @@ Repo :<a href='{% item.Value.RepoUrl  %}' target='_blank'> {% item.Value.RepoUrl
 User : {% item.Value.User %} </a> 
 </td>
 <td>
+
 Version: {% item.Value.Version  %} <br />
-Authors: {% item.Value.Authors  %}
+Authors: {% item.Value.Authors  %} <br />
+Versions: {% item.Value.Versions?.Length %}
+
+{%
+var vers=System.Linq.Enumerable.ToArray(System.Linq.Enumerable.OrderByDescending(item.Value.Versions,it=>it.ISODateTime ));
+
+%}
+{%~ foreach(var ver in vers){ %}
+
+{% ver.ISODateTime %}
+{% } %}
+
 </td>
 </tr>
 {% } %}
