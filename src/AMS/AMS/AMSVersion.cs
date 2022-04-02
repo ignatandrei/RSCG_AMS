@@ -302,6 +302,7 @@ namespace {nameAssembly} {{
             p.BeginOutputReadLine();
             p.WaitForExit();
             ReportDiagnosticFake("output length" + output.Length);
+            ReportDiagnosticFake("output " + output);
 
             var arr = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             ReportDiagnosticFake("arr length" + arr.Length);
