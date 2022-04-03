@@ -105,8 +105,17 @@ namespace AMS
             }
             catch(Exception ex)
             {
-                ReportDiagnosticFake("!!!Error!!!" + ex.Message);
-                ReportDiagnosticFake("stack trace"+ex.StackTrace);
+                generatorExecutionContext.ReportDiagnostic(Diagnostic.Create(
+        new DiagnosticDescriptor(
+            "AMS0001",
+            "Problem Generating source code",
+            "-->{0}<--",
+            "AMSGenerator",
+            DiagnosticSeverity.Warning,
+            isEnabledByDefault: true),
+        Location.None,
+        ex.Message));
+
 
             }
         }
@@ -130,7 +139,7 @@ namespace AMS
             AMSWithContext ams =null;
             ReleaseData[] rdAll= null;
 
-            //rdAll = ConstructVersionsGitHub(releasesVersions,pathRepo);
+            rdAll = ConstructVersionsGitHub(releasesVersions,pathRepo);
 
             var envGithub = Environment.GetEnvironmentVariable("GITHUB_JOB");
             if (ams == null && !string.IsNullOrWhiteSpace(envGithub))
