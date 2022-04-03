@@ -99,8 +99,8 @@ if((item.Value.Versions?.Length??0)>0) {
 var vers=System.Linq.Enumerable.ToArray(System.Linq.Enumerable.OrderByDescending(item.Value.Versions,it=>it.ISODateTime ));
 
 %}
-Versions {% vers.Length %}
-<table>
+<button type="button" class="collapsible" >See Versions {% vers.Length %}</button>
+<table style="display:none"  >
 <tr>
 <th>Nr</td>
 <th>Name/Date</th>
@@ -122,7 +122,8 @@ Versions {% vers.Length %}
 var rdAll=System.Linq.Enumerable.ToArray(System.Linq.Enumerable.OrderByDescending(ver.releaseDatas,it=>it.ReleaseDate ));
 int rdNr = 1;
 %}
-<table>
+<button type="button" class="collapsible" >See commits {% rdAll.Length %}</button>
+<table style="display:none"  >
 <tr>
 <th>Nr</th>
 <th>Details</th>
@@ -161,3 +162,21 @@ int rdNr = 1;
 Json at <a href='/ams/all' target='_blank'>/ams/all</a>
 </p>
 <p><small><a href='https://github.com/ignatandrei/RSCG_AMS/' target='_blank'>https://github.com/ignatandrei/RSCG_AMS/</a></small></p>
+
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>

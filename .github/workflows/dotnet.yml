@@ -41,6 +41,7 @@ jobs:
         dotnet run --project AMSConsole
         
     - name: build WebAPI to have test
+      if: ${{ github.ref == 'refs/heads/main' }}
       run: |
         cd src 
         cd AMS

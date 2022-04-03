@@ -9,7 +9,7 @@
 
   
   <ItemGroup>
-	  <ProjectReference Include="..\AMS_Base\AMS_Base.csproj" />  
+	  <ProjectReference Include="..\AMS_Base\AMS_Base.csproj" GeneratePathProperty="true" PrivateAssets="all" />  
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -63,12 +63,17 @@
   
 <PropertyGroup>
     <GetTargetPathDependsOn>$(GetTargetPathDependsOn);GetDependencyTargetPaths</GetTargetPathDependsOn>
+    <GenerateDocumentationFile>False</GenerateDocumentationFile>
 </PropertyGroup>
-
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<Exec Command="echo Configuration: $(Configuration)&#xD;&#xA;echo DevEnvDir: $(DevEnvDir)&#xD;&#xA;echo OutDir: $(OutDir)&#xD;&#xA;echo ProjectDir: $(ProjectDir)&#xD;&#xA;echo VisualStudioVersion: $(VisualStudioVersion)&#xD;&#xA;echo AssemblySearchPaths: $(AssemblySearchPaths)&#xD;&#xA;echo AssemblyName: $(AssemblyName)&#xD;&#xA;echo BaseIntermediateOutputPath: $(BaseIntermediateOutputPath)&#xD;&#xA;echo CscToolPath: $(CscToolPath)" />
+		<Exec Command="echo $(ProjectDir)..\AMS_Base\$(OutDir)\AMS_Base.dll" />
+	</Target>
 <Target Name="GetDependencyTargetPaths">
     <ItemGroup>
-        <TargetPathWithTargetPlatformMoniker Include="$(SolutionDir)AMS_Base\$(OutDir)\AMS_Base.dll" IncludeRuntimeDependency="false" />
-    </ItemGroup>
+        <!--<TargetPathWithTargetPlatformMoniker Include="$(SolutionDir)AMS_Base\$(OutDir)\AMS_Base.dll" IncludeRuntimeDependency="false" />-->
+		<TargetPathWithTargetPlatformMoniker Include="$(ProjectDir)..\AMS_Base\$(OutDir)\AMS_Base.dll" IncludeRuntimeDependency="false=" />
+	</ItemGroup>
 </Target>
 
 </Project>
