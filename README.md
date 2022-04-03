@@ -62,6 +62,18 @@ app.UseEndpoints(endpoints =>
 
 The access /ams/all ( for json)  or /ams/index ( for html)
 
+## Adding releases on date
+
+For adding releases between dates  use the following codes:
+
+```csharp
+using AMS_Base;
+[assembly:VersionReleased(Name="PreviousReleases",ISODateTime ="2022-03-31",recordData = RecordData.Merges)]
+[assembly: VersionReleased(Name = "WithVersioning", ISODateTime = "2022-04-02", recordData = RecordData.Merges)]
+[assembly: AMS_Base.VersionReleased(Name = "FutureRelease", ISODateTime = "9999-04-16", recordData = AMS_Base.RecordData.Merges)]
+
+```
+
 ## How it is built
 
 The AMS_Base project / nuget is containing the definition
