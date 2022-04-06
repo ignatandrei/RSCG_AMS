@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+	
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,11 +19,18 @@
 	  <ProjectReference Include="..\AMS\AMS.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
 	  <ProjectReference Include="..\AMS_Base\AMS_Base.csproj" />
 	  <ProjectReference Include="..\AMSWebAPI\AMSWebAPI.csproj" />
+	  <CompilerVisibleProperty Include="AMSMerge" />
+
   </ItemGroup>
 
 	<PropertyGroup>
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)GeneratedX</CompilerGeneratedFilesOutputPath>
+	</PropertyGroup>
+	<PropertyGroup>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)GeneratedX</CompilerGeneratedFilesOutputPath>
+		<AMSMerge>AMSInterpreter.MergeAnalyzer</AMSMerge>
 	</PropertyGroup>
 
 
