@@ -10,14 +10,17 @@
   <ItemGroup>
     <ProjectReference Include="..\AMS\AMS.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
     <ProjectReference Include="..\AMS_Base\AMS_Base.csproj" />
+	<CompilerVisibleProperty Include="AMSMerge" />
 
   </ItemGroup>
   <PropertyGroup>
     <Authors>Andrei Ignat</Authors>
+	  
   </PropertyGroup>
 
 	<PropertyGroup>
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)GeneratedX</CompilerGeneratedFilesOutputPath>
+		<AMSMerge>AMSInterpreter.MergeAnalyzer</AMSMerge>
 	</PropertyGroup>
 </Project>

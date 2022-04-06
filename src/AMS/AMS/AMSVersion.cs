@@ -1,11 +1,14 @@
 ﻿using AMS_Base;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace AMS
@@ -82,7 +85,7 @@ namespace AMS
         private void ReportDiagnosticFake(string message)
         {
 
-            return;
+            //return;
             generatorExecutionContext.ReportDiagnostic(Diagnostic.Create(
                     new DiagnosticDescriptor(
                         "AMS0001",
@@ -122,13 +125,86 @@ namespace AMS
         [MethodImpl(MethodImplOptions.NoInlining)]
         private void ExecuteInternal(GeneratorExecutionContext context)
         {
-
+            
             var ass = context.Compilation.Assembly;
             var file = ass.Locations
                 
                 .FirstOrDefault(it => it.Kind == LocationKind.SourceFile);
             var pathRepo = file.SourceTree.FilePath;
             pathRepo = Path.GetDirectoryName(pathRepo);
+
+            var val = context.AnalyzerConfigOptions.GlobalOptions.TryGetValue($"build_property.AMSMerge", out var ClassAndMethod);
+            MethodInfo miInvoke = null;
+            if (val)
+            {
+                var arr = ClassAndMethod.Split('.');
+                var theClass =  context.Compilation.GetSymbolsWithName(arr[0], SymbolFilter.Type).FirstOrDefault() as INamedTypeSymbol;
+                if (theClass != null)
+                {
+                    if (theClass.Locations.Length == 1)
+                    {
+
+                        //var peReference = context.Compilation.References
+                        //    .Select(it => it as PortableExecutableReference)
+                        //    .Where(it => it != null)
+                        //    .ToArray();
+                        
+                        //var neededAssemblies = new[]
+                        //{
+                        //        "System.Runtime",
+                        //        //"mscorlib.dll",
+                        //        //"System.Runtime.Extensions.dll"
+                        //};
+                        //string basePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".nuget","packages");
+                        //var referencesNeeded = neededAssemblies
+                        //    .Select(it => new { folder = Path.Combine(basePath, it), file = it + ".dll" })
+                        //    .SelectMany(it => Directory.GetFiles(it.folder, it.file, SearchOption.AllDirectories))
+                        //    .Where(it => it.Contains("netcore"))
+                        //    .Where(it => it.Contains("ref"))
+                        //    .Where(it => File.Exists(it))
+                        //    .Select(p => MetadataReference.CreateFromFile(p))
+                        //    .ToArray();
+
+                        var referencesNeeded =
+                            new MetadataReference[]
+{
+    MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
+    MetadataReference.CreateFromFile(typeof(Enumerable).Assembly.Location),
+    MetadataReference.CreateFromFile(typeof(Regex).Assembly.Location)
+};
+
+                        //var allRefs = referencesNeeded.Union(peReference).ToArray();
+                        //allRefs = referencesNeeded;
+                        var nameFile = theClass.Locations.First();
+                        var content = File.ReadAllText(nameFile.SourceTree.FilePath);
+                        var compilation = CSharpCompilation.Create(
+                   "MyDynamicAssembly.dll",
+                   new[] { nameFile.SourceTree },
+                   referencesNeeded,
+                   new CSharpCompilationOptions(
+                       OutputKind.DynamicallyLinkedLibrary,
+                       optimizationLevel: OptimizationLevel.Debug)
+                        );
+
+                        using var memoryStream = new MemoryStream();
+                        var result = compilation.Emit(memoryStream);
+                        if (result.Success)
+                        {
+                            var dynamicallyCompiledAssembly = Assembly.Load(memoryStream.ToArray());
+                            var exp = dynamicallyCompiledAssembly.GetExportedTypes();
+                            var type = dynamicallyCompiledAssembly.GetType(theClass.ToDisplayString());
+                            
+                            if(type != null)
+                            {
+                                miInvoke= type.GetMethod(arr[1]);
+                                //var m = member.Name;
+                            }    
+                        }
+                    }
+                }
+
+            }
+
             var releasesVersions = GetDates(context);
             ReportDiagnosticFake("number of releases" + releasesVersions?.Length);
             var data= TryGetPropertiesFromCSPROJ(context);
@@ -183,8 +259,27 @@ namespace AMS
             ams.Version = data.Version;
             //versioning
             string versioning = $"//raw commits:{rdAll?.Length}";
-            if(rdAll != null)
+            ReportDiagnosticFake("rdAll.Count " + rdAll?.Length);
+
+            if (rdAll != null)
             {
+                ReportDiagnosticFake("miInvoke exists " + (miInvoke != null));
+
+                if (miInvoke != null)
+                {
+                    foreach(var item in rdAll)
+                    {
+                        try 
+                        {
+                            item.Subject=miInvoke.Invoke(null, new object[] { ams.RepoUrl, item.CommitId, item.Author, item.ReleaseDate, item.Subject })?.ToString();
+                        }
+                        catch(Exception ex)
+                        {
+                            item.Subject = $"exception  {ex.Message} at {item.CommitId}";
+                        }
+
+                    }
+                }
                 var dict = rdAll.GroupBy(it => it.ReleaseVersion).ToDictionary(it => it.Key, it => it.ToArray());
                 
                 foreach (var item in dict)
