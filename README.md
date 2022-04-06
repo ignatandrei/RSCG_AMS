@@ -43,9 +43,9 @@ foreach (var amsKV in amsAll)
 
 Add to the csproj
 ```xml 
-    <PackageReference Include="AMSWebAPI" Version=" 2022.4.2.2037" />
-    <PackageReference Include="AMS_Base" Version=" 2022.4.2.2037" />
-    <PackageReference Include="RSCG_AMS" Version=" 2022.4.2.2037" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    <PackageReference Include="AMSWebAPI" Version="2022.4.2.2037" />
+    <PackageReference Include="AMS_Base" Version="2022.4.2.2037" />
+    <PackageReference Include="RSCG_AMS" Version="2022.4.2.2037" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
 
 ```
 
@@ -73,6 +73,50 @@ using AMS_Base;
 [assembly: AMS_Base.VersionReleased(Name = "FutureRelease", ISODateTime = "9999-04-16", recordData = AMS_Base.RecordData.Merges)]
 
 ```
+
+## Modifying the subject
+Add to the csproj the followin
+```xml
+<ItemGroup>
+    <CompilerVisibleProperty Include="AMSMerge" />
+  </ItemGroup>
+  <PropertyGroup>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)GeneratedX</CompilerGeneratedFilesOutputPath>
+		<AMSMerge>AMSInterpreter.MergeAnalyzer</AMSMerge>
+	</PropertyGroup>
+  
+```
+
+and add the following code to a class
+```csharp
+public static string MergeAnalyzer(string RepoUrl,string CommitId, string Author,    DateTime ReleaseDate, string Subject)
+        {
+            try
+            {
+                /*{
+                    //modify the subject 
+                    string regex = @"^Merge\ pull\ request\ \#(?<issueID>\d+)\ from\ (?<branch>.+?)$";
+
+                    RegexOptions options = RegexOptions.Multiline;
+                    string input = Subject;
+
+                    MatchCollection matches = Regex.Matches(input, regex, options);
+                    foreach (Match match in matches)
+                    {
+                        return $"Issue ID: {RepoUrl}/issues/{match.Groups["issueID"].Value} branch: {match.Groups["branch"].Value}"; ; 
+                    }
+                    return Subject;
+                }*/
+            }
+            catch (Exception ex)
+            {
+                return $"{CommitId} {ex.Message}";
+            }
+            
+        }
+```csharp
+
 
 ## How it is built
 
