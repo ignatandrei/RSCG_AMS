@@ -60,7 +60,7 @@ jobs:
         cd AMS
         dotnet tool restore
         dotnet pwsh readme.ps1
-        dotnet pwsh setVersion.ps1
+        # dotnet pwsh setVersion.ps1
         dotnet clean  
         dotnet build
         echo 'now pack'
