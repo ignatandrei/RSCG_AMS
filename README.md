@@ -121,8 +121,13 @@ public static string MergeAnalyzer(string RepoUrl,string CommitId, string Author
 For GitLab:
 <img width="901" alt="image" src="https://user-images.githubusercontent.com/153982/164086502-40222b40-676a-4e98-b7ad-ba96dba8e16e.png">
 
-For GitHub
-
+For GitHub actions:
+```yaml
+ steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+```
 ## How it is built
 
 The AMS_Base project / nuget is containing the definition
