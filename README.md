@@ -115,8 +115,13 @@ public static string MergeAnalyzer(string RepoUrl,string CommitId, string Author
             }
             
         }
-```csharp
+```
 
+## CI settings
+For GitLab:
+<img width="901" alt="image" src="https://user-images.githubusercontent.com/153982/164086502-40222b40-676a-4e98-b7ad-ba96dba8e16e.png">
+
+For GitHub
 
 ## How it is built
 
