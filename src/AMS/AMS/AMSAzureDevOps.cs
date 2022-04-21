@@ -12,6 +12,7 @@ namespace AMS
             CISourceControl = "AzureDevOps";
             CommitId = Environment.GetEnvironmentVariable("Build.SourceVersion");
             RepoUrl = Environment.GetEnvironmentVariable("Build.Repository.Uri");
+            IsInCI = true;
             //SourceCommit = RepoUrl + "/tree/" + CommitId; // how to find initial repo type ?
         }
     }

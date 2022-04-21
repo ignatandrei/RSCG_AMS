@@ -13,6 +13,7 @@ namespace AMS
             CommitId = Environment.GetEnvironmentVariable("CI_COMMIT_SHA", EnvironmentVariableTarget.Process);
             RepoUrl = Environment.GetEnvironmentVariable("CI_PROJECT_URL",EnvironmentVariableTarget.Process);
             SourceCommit = RepoUrl + "/-/tree/" + CommitId;
+            IsInCI = true;
         }
     }
 }
