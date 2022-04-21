@@ -71,11 +71,12 @@ namespace AMS_Base
             SourceCommit = NotFoundLink;
             User = Environment.UserName;
             DateGenerated = DateTime.UtcNow;
+            IsInCI = false;
         }
         public string User { get; set; }
         public string Version { get; set; }
         public string Authors { get; set; }
-
+        public bool IsInCI { get; set; }
         public string SourceCommit { get; set; }
         public string CISourceControl { get; set; }
         public string AssemblyName { get; set; }

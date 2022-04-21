@@ -85,7 +85,7 @@ namespace AMS
         private void ReportDiagnosticFake(string message)
         {
 
-            //return;
+            return;
             generatorExecutionContext.ReportDiagnostic(Diagnostic.Create(
                     new DiagnosticDescriptor(
                         "AMS0001",
@@ -340,6 +340,7 @@ namespace {nameAssembly} {{
             Version= ""{ams.Version}"";    
             EnvironmentVars =""{ams.EnvironmentVars}"";
             User = ""{ams.User.Replace(@"\",@"\\")}"";
+            IsInCI={(ams.IsInCI?"true":"false")};
             {versioning}
         }}
         
