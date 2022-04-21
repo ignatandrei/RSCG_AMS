@@ -73,7 +73,47 @@ using AMS_Base;
 [assembly: AMS_Base.VersionReleased(Name = "FutureRelease", ISODateTime = "9999-04-16", recordData = AMS_Base.RecordData.Merges)]
 
 ```
+## Detecting that you are in a CI build
 
+Put into the .csproj
+```xml
+	<PropertyGroup>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)GeneratedX</CompilerGeneratedFilesOutputPath>
+	</PropertyGroup>
+```
+
+In the obj folder see the GeneratedX folder, then AMS folder, than AMS.AMSVersion folder, then edit the .cs file with notepad
+
+you will see something like
+```csharp
+public class XAboutMySoftware_digits
+```
+Please see what are the digits
+
+In your code put someething like this
+```csharp
+bool IsInCI = new XAboutMySoftware_digits().IsInCI;
+
+builder.Services.AddDbContextFactory<ApplicationDBContext>(
+    options =>
+    {
+        if (IsInCI)
+        {
+            var cn = builder.Configuration.GetConnectionString("DefaultConnection");
+            options.UseSqlServer(cn);
+        }
+
+        else
+        {
+            var cn = "Data Source=Tilt.db";
+            options.UseSqlite(cn);
+        }
+    }
+     )
+   ;
+
+```
 ## Modifying the subject
 Add to the csproj the followin
 ```xml
