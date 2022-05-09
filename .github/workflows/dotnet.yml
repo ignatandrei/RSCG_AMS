@@ -61,10 +61,9 @@ jobs:
         dotnet tool restore
         dotnet pwsh readme.ps1
         # dotnet pwsh setVersion.ps1
-        dotnet clean  
-        dotnet build
         echo 'now aop'
         dotnet pwsh AOPMethod.ps1
+        dotnet clean  
         dotnet build
         echo 'now pack'
         dotnet pack AMS_Base/AMS_Base.csproj    -o nugetPackages  --include-symbols --include-source 
