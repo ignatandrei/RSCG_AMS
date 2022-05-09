@@ -1,4 +1,5 @@
 ﻿using AMS_Base;
+using AOPMethodsCommon;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using System;
@@ -19,8 +20,11 @@ namespace AMS
         public string Version { get; internal set; }
     }
     [Generator]
-    public class AMSVersion : ISourceGenerator
+    [AutoMethods(CustomTemplateFileName = "../AutoMethod.txt", MethodPrefix = "auto", template = TemplateMethod.CustomTemplateFile)]
+
+    public partial class AMSVersion : ISourceGenerator
     {
+        private bool ShowWarningsForReportingDuringTheBuild = false;
         private ItemsFromCSPROJ TryGetPropertiesFromCSPROJ(GeneratorExecutionContext context)
         {
             var ret= new ItemsFromCSPROJ();
@@ -84,12 +88,13 @@ namespace AMS
         }
         private void ReportDiagnosticFake(string message)
         {
+            if(!ShowWarningsForReportingDuringTheBuild)
+                return;
 
-            return;
             generatorExecutionContext.ReportDiagnostic(Diagnostic.Create(
                     new DiagnosticDescriptor(
                         "AMS0001",
-                        "An warning by AMS generator",
+                        "An fake warning by AMS generator",
                         "-->{0}<--",
                         "AMSGenerator",
                         DiagnosticSeverity.Warning,
@@ -132,6 +137,15 @@ namespace AMS
                 .FirstOrDefault(it => it.Kind == LocationKind.SourceFile);
             var pathRepo = file.SourceTree.FilePath;
             pathRepo = Path.GetDirectoryName(pathRepo);
+            ShowWarningsForReportingDuringTheBuild = context.AnalyzerConfigOptions.GlobalOptions.TryGetValue($"build_property.FakeWarningForDiagnostics", out var boolFake);
+            if (ShowWarningsForReportingDuringTheBuild)
+            {
+                if(bool.TryParse(boolFake, out var fake))
+                {
+                    ShowWarningsForReportingDuringTheBuild = fake;
+                }
+            }
+
 
             var val = context.AnalyzerConfigOptions.GlobalOptions.TryGetValue($"build_property.AMSMerge", out var ClassAndMethod);
             MethodInfo miInvoke = null;
