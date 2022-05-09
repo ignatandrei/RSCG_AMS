@@ -10,7 +10,10 @@
   <ItemGroup>
     <ProjectReference Include="..\AMS\AMS.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
     <ProjectReference Include="..\AMS_Base\AMS_Base.csproj" />
-	<CompilerVisibleProperty Include="AMSMerge" />
+	  <!--<PackageReference Include="AMS_Base" Version="2022.5.9.113" />-->
+	  <!--<PackageReference Include="RSCG_AMS" Version="2022.5.9.113" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />-->
+
+	  <CompilerVisibleProperty Include="AMSMerge" />
 	  <CompilerVisibleProperty Include="FakeWarningForDiagnostics" />
 	  
 

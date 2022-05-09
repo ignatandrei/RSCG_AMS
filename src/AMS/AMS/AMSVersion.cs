@@ -109,6 +109,14 @@ namespace AMS
             generatorExecutionContext = context;
             try
             {
+                ShowWarningsForReportingDuringTheBuild = context.AnalyzerConfigOptions.GlobalOptions.TryGetValue($"build_property.FakeWarningForDiagnostics", out var boolFake);
+                if (ShowWarningsForReportingDuringTheBuild)
+                {
+                    if (bool.TryParse(boolFake, out var fake))
+                    {
+                        ShowWarningsForReportingDuringTheBuild = fake;
+                    }
+                }
                 ExecuteInternal(context);
             }
             catch(Exception ex)
@@ -138,14 +146,6 @@ namespace AMS
                 .FirstOrDefault(it => it.Kind == LocationKind.SourceFile);
             var pathRepo = file.SourceTree.FilePath;
             pathRepo = Path.GetDirectoryName(pathRepo);
-            ShowWarningsForReportingDuringTheBuild = context.AnalyzerConfigOptions.GlobalOptions.TryGetValue($"build_property.FakeWarningForDiagnostics", out var boolFake);
-            if (ShowWarningsForReportingDuringTheBuild)
-            {
-                if(bool.TryParse(boolFake, out var fake))
-                {
-                    ShowWarningsForReportingDuringTheBuild = fake;
-                }
-            }
 
 
             var val = context.AnalyzerConfigOptions.GlobalOptions.TryGetValue($"build_property.AMSMerge", out var ClassAndMethod);

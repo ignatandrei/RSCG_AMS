@@ -5,9 +5,9 @@ a Roslyn Source Code Generator for About My Software
 
 Add to the csproj
 ```xml 
-    <PackageReference Include="AMSWebAPI" Version="2022.5.9.926" />
-    <PackageReference Include="AMS_Base" Version="2022.5.9.926" />
-    <PackageReference Include="RSCG_AMS" Version="2022.5.9.926" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    <PackageReference Include="AMSWebAPI" Version="2022.5.9.113" />
+    <PackageReference Include="AMS_Base" Version="2022.5.9.113" />
+    <PackageReference Include="RSCG_AMS" Version="2022.5.9.113" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
 
 ```
 
