@@ -46,16 +46,6 @@ namespace {{NamespaceName}} {
             //var sw=Stopwatch.StartNew();
 
             ReportDiagnosticFake("{{mi.NewName}} => start");
-            {{~ for miArg in mi.Parameters  ~}}
-                string val{{ miArg.Key }} ;
-                try{
-                    val{{ miArg.Key }} = System.Text.Json.JsonSerializer.Serialize({{ miArg.Key }});
-                }
-                catch(Exception ex){
-                    val{{ miArg.Key }} = "Error serializing parameter {{ miArg.Key }} : "+ ex.Message;
-                }
-                span?.SetTag("Argument_{{ miArg.Key }}",val{{ miArg.Key }});
-            {{ end}}
             try{
                 {{returnString}} {{  strAwait }} {{mi.Name}}({{ mi.parametersCallCSharp }});
             }

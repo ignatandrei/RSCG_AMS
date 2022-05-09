@@ -128,6 +128,7 @@ namespace AMS
             }
         }
         [MethodImpl(MethodImplOptions.NoInlining)]
+        [AOPMarkerMethod]
         private void ExecuteInternal(GeneratorExecutionContext context)
         {
             
@@ -364,7 +365,7 @@ namespace {nameAssembly} {{
             context.AddSource(nameSpace + "." + ams.AssemblyName + ".cs", classDef);
 
         }
-
+        [AOPMarkerMethod]
         private ReleaseData[] ConstructVersionsGitLab(VersionReleasedAttribute[] releasesVersions,string pathRepo)
         {
             var gitMergeVersion = ConstructMergesVersionsGit( releasesVersions,pathRepo);
@@ -373,7 +374,7 @@ namespace {nameAssembly} {{
 
             return gitMergeVersion;
         }
-
+        [AOPMarkerMethod]
         private ReleaseData[] ConstructVersionsGitHub(VersionReleasedAttribute[] releasesVersions,string pathRepo)
         {
             var gitMergeVersion = ConstructMergesVersionsGit(releasesVersions,pathRepo);
@@ -383,6 +384,7 @@ namespace {nameAssembly} {{
             //gitMergeVersion = gitMergeVersion.Where(it => !it.Subject.StartsWith("into main")).ToArray();
             return gitMergeVersion;
         }
+        [AOPMarkerMethod]
         private string WhereGit()
         {
             var p = new Process();
@@ -419,6 +421,7 @@ namespace {nameAssembly} {{
             //Console.WriteLine("gitPath:" + gitPath);
 
         }
+        [AOPMarkerMethod]
         private ReleaseData[] ConstructMergesVersionsGit(VersionReleasedAttribute[] releasesVersions, string pathRepo)
         {
             if ((releasesVersions?.Length ?? 0) == 0)
@@ -480,7 +483,7 @@ namespace {nameAssembly} {{
             return releases.ToArray();
         }
 
-
+        [AOPMarkerMethod]
         public void Initialize(GeneratorInitializationContext context)
         {
             context.RegisterForSyntaxNotifications(() => new SR());
