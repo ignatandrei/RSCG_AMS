@@ -56,7 +56,7 @@ namespace {{NamespaceName}} {
             }
             finally{
                 ReportDiagnosticFake("{{mi.NewName}} => end" );
-                span?.Stop();
+                
                 
             }
 
