@@ -11,6 +11,8 @@
     <ProjectReference Include="..\AMS\AMS.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
     <ProjectReference Include="..\AMS_Base\AMS_Base.csproj" />
 	<CompilerVisibleProperty Include="AMSMerge" />
+	  <CompilerVisibleProperty Include="FakeWarningForDiagnostics" />
+	  
 
   </ItemGroup>
   <PropertyGroup>
@@ -19,6 +21,7 @@
   </PropertyGroup>
 
 	<PropertyGroup>
+		<FakeWarningForDiagnostics>true</FakeWarningForDiagnostics>
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)GeneratedX</CompilerGeneratedFilesOutputPath>
 		<AMSMerge>AMSInterpreter.MergeAnalyzer</AMSMerge>

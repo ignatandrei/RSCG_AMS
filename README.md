@@ -156,7 +156,27 @@ public static string MergeAnalyzer(string RepoUrl,string CommitId, string Author
             
         }
 ```
+## Diagnostics
 
+//TODO: Add more explanations here
+
+```xml
+  <ItemGroup>
+    <ProjectReference Include="..\AMS\AMS.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    <ProjectReference Include="..\AMS_Base\AMS_Base.csproj" />
+	<CompilerVisibleProperty Include="AMSMerge" />
+	  <CompilerVisibleProperty Include="FakeWarningForDiagnostics" />
+	  
+
+  </ItemGroup>
+	<PropertyGroup>
+		<FakeWarningForDiagnostics>true</FakeWarningForDiagnostics>
+		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)GeneratedX</CompilerGeneratedFilesOutputPath>
+		<AMSMerge>AMSInterpreter.MergeAnalyzer</AMSMerge>
+	</PropertyGroup>
+
+```	
 ## CI settings
 For GitLab:
 <img width="901" alt="image" src="https://user-images.githubusercontent.com/153982/164086502-40222b40-676a-4e98-b7ad-ba96dba8e16e.png">
