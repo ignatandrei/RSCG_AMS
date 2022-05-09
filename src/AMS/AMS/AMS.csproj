@@ -43,8 +43,8 @@
 	</ItemGroup>
 
 	<PropertyGroup>
-    <Version>2022.4.21.349</Version>
-    <PackageVersion>2022.4.21.349</PackageVersion>
+    <Version>2022.5.9.926</Version>
+    <PackageVersion>2022.5.9.926</PackageVersion>
     <Authors>Andrei Ignat</Authors>
     <Description>This package lets you put record the commit , date , and more for your software . </Description>
     <Title>AboutMySoftware</Title>

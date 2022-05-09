@@ -16,8 +16,8 @@
 
   </ItemGroup>
   <PropertyGroup>
-    <Version>2022.4.21.349</Version>
-    <PackageVersion>2022.4.21.349</PackageVersion>
+    <Version>2022.5.9.926</Version>
+    <PackageVersion>2022.5.9.926</PackageVersion>
     <Authors>Andrei Ignat</Authors>
     <Description>Containing the base classes for everything in RSCG_AMS</Description>
     <Title>AboutMySoftware Base</Title>
