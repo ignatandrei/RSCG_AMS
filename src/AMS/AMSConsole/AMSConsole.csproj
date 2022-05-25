@@ -14,6 +14,7 @@
 	  <!--<PackageReference Include="RSCG_AMS" Version="2022.5.9.113" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />-->
 
 	  <CompilerVisibleProperty Include="AMSMerge" />
+	  <CompilerVisibleProperty Include="AMSGitArgs" />
 	  <CompilerVisibleProperty Include="FakeWarningForDiagnostics" />
 	  
 
@@ -28,5 +29,7 @@
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<CompilerGeneratedFilesOutputPath>$(BaseIntermediateOutputPath)GeneratedX</CompilerGeneratedFilesOutputPath>
 		<AMSMerge>AMSInterpreter.MergeAnalyzer</AMSMerge>
+		<AMSGitArgs>log --merges --pretty='%an|%ai|%H|%s</AMSGitArgs>
+
 	</PropertyGroup>
 </Project>

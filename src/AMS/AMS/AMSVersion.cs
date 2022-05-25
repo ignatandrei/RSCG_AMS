@@ -147,8 +147,15 @@ namespace AMS
             var pathRepo = file.SourceTree.FilePath;
             pathRepo = Path.GetDirectoryName(pathRepo);
 
+            var valMerge = context.AnalyzerConfigOptions.GlobalOptions.TryGetValue($"build_property.AMSGitArgs", out var gitArgs);
+            if (!valMerge)
+            {
+                gitArgs= @"log --merges --pretty=""%an|%cs|%H|%s""";
+            }
+
 
             var val = context.AnalyzerConfigOptions.GlobalOptions.TryGetValue($"build_property.AMSMerge", out var ClassAndMethod);
+
             MethodInfo miInvoke = null;
             if (val)
             {
@@ -230,7 +237,7 @@ namespace AMS
             AMSWithContext ams =null;
             ReleaseData[] rdAll= null;
 
-            //rdAll = ConstructVersionsGitHub(releasesVersions,pathRepo);
+            rdAll = ConstructVersionsGitHub(releasesVersions,pathRepo,gitArgs);
 
             var envGithub = Environment.GetEnvironmentVariable("GITHUB_JOB");
             if (ams == null && !string.IsNullOrWhiteSpace(envGithub))
@@ -238,7 +245,7 @@ namespace AMS
                 ReportDiagnosticFake("in github");
 
                 ams = new AMSGitHub(context);
-                rdAll =ConstructVersionsGitHub(releasesVersions,pathRepo);
+                rdAll =ConstructVersionsGitHub(releasesVersions,pathRepo,gitArgs);
                 ReportDiagnosticFake("number of rd"+rdAll?.Length);
 
             }
@@ -246,7 +253,7 @@ namespace AMS
             if (ams == null && !string.IsNullOrWhiteSpace(envGitLab))
             {
                 ams = new AMSGitLab(context);
-                rdAll = ConstructVersionsGitLab(releasesVersions, pathRepo);
+                rdAll = ConstructVersionsGitLab(releasesVersions, pathRepo,gitArgs);
 
             }
             var envHeroku= Environment.GetEnvironmentVariable("DYNO");
@@ -366,18 +373,18 @@ namespace {nameAssembly} {{
 
         }
         [AOPMarkerMethod]
-        private ReleaseData[] ConstructVersionsGitLab(VersionReleasedAttribute[] releasesVersions,string pathRepo)
+        private ReleaseData[] ConstructVersionsGitLab(VersionReleasedAttribute[] releasesVersions,string pathRepo,string gitArgs)
         {
-            var gitMergeVersion = ConstructMergesVersionsGit( releasesVersions,pathRepo);
+            var gitMergeVersion = ConstructMergesVersionsGit( releasesVersions,pathRepo,gitArgs);
             if ((gitMergeVersion?.Length??0) == 0)
                 return gitMergeVersion;
 
             return gitMergeVersion;
         }
         [AOPMarkerMethod]
-        private ReleaseData[] ConstructVersionsGitHub(VersionReleasedAttribute[] releasesVersions,string pathRepo)
+        private ReleaseData[] ConstructVersionsGitHub(VersionReleasedAttribute[] releasesVersions,string pathRepo, string gitArgs)
         {
-            var gitMergeVersion = ConstructMergesVersionsGit(releasesVersions,pathRepo);
+            var gitMergeVersion = ConstructMergesVersionsGit(releasesVersions,pathRepo,gitArgs);
             if ((gitMergeVersion?.Length ?? 0) == 0)
                 return gitMergeVersion;
 
@@ -422,7 +429,7 @@ namespace {nameAssembly} {{
 
         }
         [AOPMarkerMethod]
-        private ReleaseData[] ConstructMergesVersionsGit(VersionReleasedAttribute[] releasesVersions, string pathRepo)
+        private ReleaseData[] ConstructMergesVersionsGit(VersionReleasedAttribute[] releasesVersions, string pathRepo, string gitArgs)
         {
             if ((releasesVersions?.Length ?? 0) == 0)
                 return null;
@@ -445,7 +452,8 @@ namespace {nameAssembly} {{
                 p.StartInfo.FileName = WhereGit();
                 //p.StartInfo.Arguments = "for-each-ref --sort=committerdate refs/heads/ --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
                 //p.StartInfo.Arguments = "for-each-ref --sort=committerdate --format='%(authorname)|%(committerdate:short)|%(objectname)|%(refname)|%(subject)'";
-                p.StartInfo.Arguments = @"log --merges --pretty=""%an|%cs|%H|%s""";
+                //p.StartInfo.Arguments = @"log --merges --pretty=""%an|%cs|%H|%s""";
+                p.StartInfo.Arguments = gitArgs;
                 //p.StartInfo.Arguments = "log --merges --pretty=\"\"\"%an|%cs|%H|%s\"\"\" ";
                 p.OutputDataReceived += (s, e) => { output += e.Data + Environment.NewLine; };
                 p.ErrorDataReceived+= (s, e) => { ReportDiagnosticFake(e.Data); };
@@ -466,7 +474,18 @@ namespace {nameAssembly} {{
                 var arrData = line.Split(new[] { '|' },StringSplitOptions.RemoveEmptyEntries);
                 var rd = new ReleaseData();
                 rd.Author=arrData[0];
-                rd.ReleaseDate = DateTime.ParseExact(arrData[1], "yyyy-MM-dd",null);
+                var strDate = arrData[1].Trim();
+                if (strDate.Length > 10)
+                {
+                    ReportDiagnosticFake($"modify {strDate} to take just 10 chars");
+                    strDate = strDate.Substring(0,10);
+                }
+                if (strDate.Length != 10)
+                {
+                    ReportDiagnosticFake($"{strDate} is invalid - should be yyyy-MM-dd");
+                    continue;
+                }
+                rd.ReleaseDate = DateTime.ParseExact(strDate, "yyyy-MM-dd",null);
                 rd.CommitId = arrData[2];                
                 rd.Subject =arrData[3];
                 rd.ReleaseVersion = releasesVersions
