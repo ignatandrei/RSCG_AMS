@@ -199,7 +199,10 @@ The AMSWebAPI project / nuget generates the code for endpoints  :  /ams/index.ht
 See more at http://msprogrammer.serviciipeweb.ro/category/ams/
 
 ## TBD:
+
 More about https://github.com/ignatandrei/RSCG_AMS/issues/27 
 ```xml
 <AMSGitArgs>log --merges --pretty='%an|%ai|%H|%s</AMSGitArgs>
 ```
+
+More about Angular - to display ams - see src/Angular

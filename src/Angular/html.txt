@@ -1,0 +1,6 @@
+<footer><small>
+      Repo: <a  target="_blank" href="{{ams?.sourceCommit}}">{{ams?.repoUrl}}</a><br /> 
+      Made by {{ams?.authors}} on {{ams?.TheDate}} <br /> 
+      Automation : <a href="/swagger">Swagger</a> | <a href="/BlocklyAutomation">BlocklyAutomation</a>
+
+    </small></footer>
