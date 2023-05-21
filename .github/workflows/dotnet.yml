@@ -100,7 +100,12 @@ jobs:
 
     - name: push to nuget
       run: |
-        
-        dotnet nuget push "${{github.workspace}}/src/nugetPackages/*symb*.*pkg" --api-key  ${{ secrets.NUGETAPIKEY }} --source https://api.nuget.org/v3/index.json
+        echo 'now dir'
+        dir ${{github.workspace}}/src/nugetPackages/
+        echo 'now dir 2'
+        dir src/nugetPackages/
+        dotnet nuget push ${{github.workspace}}/src/nugetPackages/AMS_Base*symb*.*pkg --api-key  ${{ secrets.NUGETAPIKEY }} --source https://api.nuget.org/v3/index.json
+        dotnet nuget push ${{github.workspace}}/src/nugetPackages/RSCG_AMS*symb*.*pkg --api-key  ${{ secrets.NUGETAPIKEY }} --source https://api.nuget.org/v3/index.json
+        dotnet nuget push ${{github.workspace}}/src/nugetPackages/AMSWebAPI*symb*.*pkg --api-key  ${{ secrets.NUGETAPIKEY }} --source https://api.nuget.org/v3/index.json
   
     
