@@ -12,6 +12,7 @@ namespace AMSConsole
         {
 
             Console.WriteLine("Show About My Software versions");
+
             var amsAll = AboutMySoftware.AllDefinitions;
             Console.WriteLine("Number definitions:" + amsAll?.Length);
             foreach (var amsKV in amsAll)
@@ -25,6 +26,7 @@ namespace AMSConsole
                 Console.WriteLine($"{amsKV.Key}.{nameof(ams.CISourceControl)} : {ams.CISourceControl}");
                 Console.WriteLine($"{amsKV.Key}.{nameof(ams.Authors)} : {ams.Authors}");
                 Console.WriteLine($"{amsKV.Key}.{nameof(ams.Version)} : {ams.Version}");
+                Console.WriteLine($"{amsKV.Key}.{nameof(ams.User)} : {ams.User}");
                 Console.WriteLine("versions" + ams.Versions?.Length);
                 if(ams.Versions != null)
                 foreach(var item in ams.Versions)

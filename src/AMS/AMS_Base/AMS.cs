@@ -8,13 +8,14 @@ namespace AMS_Base
         /// 
         /// </summary>
         /// <param name="context">must have  Compilation?.AssemblyName </param>
-        public AMSWithContext(dynamic context):base()
-        {
-            AssemblyName = context?.Compilation?.AssemblyName;                        
-        }
+        //public AMSWithContext(dynamic context):base()
+        //{
+        //    AssemblyName = context?.Compilation?.AssemblyName;                        
+        //}
         public AMSWithContext(string assemblyName)
         {
             this.AssemblyName = assemblyName;
+            this.User = Environment.UserName;
         }
 
         

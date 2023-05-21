@@ -244,7 +244,7 @@ namespace AMS
             {
                 ReportDiagnosticFake("in github");
 
-                ams = new AMSGitHub(context);
+                ams = new AMSGitHub(nameAssembly);
                 rdAll =ConstructVersionsGitHub(releasesVersions,pathRepo,gitArgs);
                 ReportDiagnosticFake("number of rd"+rdAll?.Length);
 
@@ -252,23 +252,23 @@ namespace AMS
             var envGitLab = Environment.GetEnvironmentVariable("CI_SERVER");
             if (ams == null && !string.IsNullOrWhiteSpace(envGitLab))
             {
-                ams = new AMSGitLab(context);
+                ams = new AMSGitLab(nameAssembly);
                 rdAll = ConstructVersionsGitLab(releasesVersions, pathRepo,gitArgs);
 
             }
             var envHeroku= Environment.GetEnvironmentVariable("DYNO");
             if (ams == null && !string.IsNullOrWhiteSpace(envHeroku))
             {
-                ams = new AMSHeroku(context);
+                ams = new AMSHeroku(nameAssembly);
             }
             var envAzureDevOps = Environment.GetEnvironmentVariable("Build.BuildId");
             if (ams == null && !string.IsNullOrWhiteSpace(envAzureDevOps))
             {
-                ams = new AMSAzureDevOps(context);
+                ams = new AMSAzureDevOps(nameAssembly);
             }
             if (ams == null)
             {
-                ams = new AMSWithContext(context);//default not integrated in a CI
+                ams = new AMSWithContext(nameAssembly);//default not integrated in a CI
             }
             //dealing with  <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.7" />
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace AMS;
@@ -56,7 +57,36 @@ public class AMSVersionIncremental : IIncrementalGenerator
     //{
     //    GenerateText1(arg1, arg2.Left.Left,arg2.Left.Right,arg2.Right);
     //}
+    private AMSWithContext ConstructAMS(string nameAssembly)
+    {
+        var envGithub = Environment.GetEnvironmentVariable("GITHUB_JOB");
 
+        if (!string.IsNullOrWhiteSpace(envGithub))
+        {
+
+            return new AMSGitHub(nameAssembly);
+           
+        }
+        var envGitLab = Environment.GetEnvironmentVariable("CI_SERVER");
+        if (!string.IsNullOrWhiteSpace(envGitLab))
+        {
+            return new AMSGitLab(nameAssembly);
+
+        }
+        var envHeroku = Environment.GetEnvironmentVariable("DYNO");
+        if (!string.IsNullOrWhiteSpace(envHeroku))
+        {
+            return new AMSHeroku(nameAssembly);
+        }
+        var envAzureDevOps = Environment.GetEnvironmentVariable("Build.BuildId");
+        if (!string.IsNullOrWhiteSpace(envAzureDevOps))
+        {
+            return  new AMSAzureDevOps(nameAssembly);
+        }
+        
+        return new AMSWithContext(nameAssembly);//default not integrated in a CI
+        
+    }
     private void GenerateText1(SourceProductionContext spc, AttributeData[]attData, string nameAssembly, Location pathRepoLocation,string gitArgs)
     {
 
