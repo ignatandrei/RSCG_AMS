@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>9.0</LangVersion>   
+    <LangVersion>Latest</LangVersion>   
     <IsPackable>true</IsPackable>
     <IsRoslynComponent>true</IsRoslynComponent>	  
   </PropertyGroup>
@@ -10,17 +10,17 @@
   
   <ItemGroup>
 	  <ProjectReference Include="..\AMS_Base\AMS_Base.csproj" GeneratePathProperty="true" PrivateAssets="all" />  
-    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.2">
+    <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.9.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.5.0" />
     </ItemGroup>
   <ItemGroup>
     <CompilerVisibleProperty Include="RootNamespace" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     <None Include="readme.md" Pack="true" PackagePath="\" />
     <None Include="../../../docs/ams.png" Pack="true" PackagePath="\" />
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />

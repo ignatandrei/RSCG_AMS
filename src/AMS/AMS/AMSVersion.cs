@@ -19,9 +19,9 @@ namespace AMS
         public string Authors { get; set; }
         public string Version { get; internal set; }
     }
-    [Generator]
-    [AutoMethods(CustomTemplateFileName = "../AutoMethod.txt", MethodPrefix = "auto", template = TemplateMethod.CustomTemplateFile)]
-
+    //[Generator]
+    //[AutoMethods(CustomTemplateFileName = "../AutoMethod.txt", MethodPrefix = "auto", template = TemplateMethod.CustomTemplateFile)]
+    [Obsolete]
     public partial class AMSVersion : ISourceGenerator
     {
         private bool ShowWarningsForReportingDuringTheBuild = false;
