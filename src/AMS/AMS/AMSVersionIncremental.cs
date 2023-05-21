@@ -97,12 +97,12 @@ public class AMSVersionIncremental : IIncrementalGenerator
         }
 
         var releasesVersions = CreateVersionsFromAttr(attData);
-        AMSWithContext ams = new AMSGitHub(nameAssembly);        
-        ReleaseData[] rdAll = null;
+        AMSWithContext ams = ConstructAMS(nameAssembly);        
+        
         var pathRepo=  pathRepoLocation.SourceTree.FilePath;
         pathRepo = Path.GetDirectoryName(pathRepo);
-
-        rdAll = ConstructVersionsGitHub(releasesVersions, pathRepo, gitArgs);
+        //try anyway to have version of git
+        var rdAll = ConstructMergesVersionsGit(releasesVersions, pathRepo, gitArgs);
         var dict = rdAll.GroupBy(it => it.ReleaseVersion).ToDictionary(it => it.Key, it => it.ToArray());
         string versioning = "";
         foreach (var item in dict)
@@ -201,15 +201,15 @@ namespace {nameAssembly} {{
         return versions.ToArray();
     }
 
-    private ReleaseData[] ConstructVersionsGitHub(VersionReleasedAttribute[] releasesVersions, string pathRepo, string gitArgs)
-    {
-        var gitMergeVersion = ConstructMergesVersionsGit(releasesVersions, pathRepo, gitArgs);
-        if ((gitMergeVersion?.Length ?? 0) == 0)
-            return gitMergeVersion;
+    //private ReleaseData[] ConstructVersionsGitHub(VersionReleasedAttribute[] releasesVersions, string pathRepo, string gitArgs)
+    //{
+    //    var gitMergeVersion = ConstructMergesVersionsGit(releasesVersions, pathRepo, gitArgs);
+    //    if ((gitMergeVersion?.Length ?? 0) == 0)
+    //        return gitMergeVersion;
 
-        //gitMergeVersion = gitMergeVersion.Where(it => !it.Subject.StartsWith("into main")).ToArray();
-        return gitMergeVersion;
-    }
+    //    //gitMergeVersion = gitMergeVersion.Where(it => !it.Subject.StartsWith("into main")).ToArray();
+    //    return gitMergeVersion;
+    //}
     private ReleaseData[] ConstructMergesVersionsGit(VersionReleasedAttribute[] releasesVersions, string pathRepo, string gitArgs)
     {
         if ((releasesVersions?.Length ?? 0) == 0)
