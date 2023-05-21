@@ -13,15 +13,14 @@ You will obtain
  
 
 [![BuildAndTest](https://github.com/ignatandrei/RSCG_AMS/actions/workflows/dotnet.yml/badge.svg)](https://github.com/ignatandrei/RSCG_AMS/actions/workflows/dotnet.yml)
-2022.5.25.1154
 ## How to use
 ### For Console or DLL 
 
-Add to the csproj 2022.5.25.1154
+Add to the csproj 2023.5.21.1541
 ```xml 
 <ItemGroup>
-    <PackageReference Include="AMS_Base" Version="2022.5.25.1154" />
-    <PackageReference Include="RSCG_AMS" Version="2022.5.25.1154" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    <PackageReference Include="AMS_Base" Version="2023.5.21.1541" />
+    <PackageReference Include="RSCG_AMS" Version="2023.5.21.1541" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
   </ItemGroup>
 ```
 
@@ -43,9 +42,9 @@ foreach (var amsKV in amsAll)
 
 Add to the csproj
 ```xml 
-    <PackageReference Include="AMSWebAPI" Version="2022.5.25.1154" />
-    <PackageReference Include="AMS_Base" Version="2022.5.25.1154" />
-    <PackageReference Include="RSCG_AMS" Version="2022.5.25.1154" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    <PackageReference Include="AMSWebAPI" Version="2023.5.21.1541" />
+    <PackageReference Include="AMS_Base" Version="2023.5.21.1541" />
+    <PackageReference Include="RSCG_AMS" Version="2023.5.21.1541" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
 
 ```
 
