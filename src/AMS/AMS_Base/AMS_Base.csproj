@@ -16,7 +16,7 @@
 
   </ItemGroup>
   <PropertyGroup>
-    <Version>2023.5.21.1541</Version>
+    <Version>2023.5.21.1551</Version>
     <Authors>Andrei Ignat</Authors>
     <Description>Containing the base classes for everything in RSCG_AMS</Description>
     <Title>AboutMySoftware Base</Title>

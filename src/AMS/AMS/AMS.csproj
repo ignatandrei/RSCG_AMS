@@ -45,13 +45,13 @@
 	</ItemGroup>
 
 	<PropertyGroup>
-    <Version>2023.5.21.1541</Version>
+    <Version>2023.5.21.1551</Version>
     <Authors>Andrei Ignat</Authors>
     <Description>This package lets you put record the commit , date , and more for your software . </Description>
     <Title>AboutMySoftware</Title>
     <PackageId>RSCG_AMS</PackageId>
     <PackageTags>C#;.NET;ASP.NET Core;Roslyn;RSCG</PackageTags>
-    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>ams.png</PackageIcon>
     <RepositoryUrl>https://github.com/ignatandrei/RSCG_AMS</RepositoryUrl>
     <PackageProjectUrl>https://github.com/ignatandrei/RSCG_AMS</PackageProjectUrl>

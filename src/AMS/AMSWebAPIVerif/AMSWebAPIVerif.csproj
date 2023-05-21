@@ -13,9 +13,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
     
     
-    <!--<PackageReference Include="AMSWebAPI" Version="2023.5.21.1541" />-->
-    <!--<PackageReference Include="AMS_Base" Version="2023.5.21.1541" />-->
-    <!--<PackageReference Include="RSCG_AMS" Version="2023.5.21.1541" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />-->
+    <!--<PackageReference Include="AMSWebAPI" Version="2023.5.21.1551" />-->
+    <!--<PackageReference Include="AMS_Base" Version="2023.5.21.1551" />-->
+    <!--<PackageReference Include="RSCG_AMS" Version="2023.5.21.1551" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />-->
 	  <ProjectReference Include="..\AMS\AMS.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
 	  <ProjectReference Include="..\AMS_Base\AMS_Base.csproj" />
 	  <ProjectReference Include="..\AMSWebAPI\AMSWebAPI.csproj" />
