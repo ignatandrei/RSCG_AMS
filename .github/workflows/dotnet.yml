@@ -20,7 +20,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-        
+
     - name: Setup .NET 5
       uses: actions/setup-dotnet@v3
       with:
@@ -52,7 +52,7 @@ jobs:
         dotnet run --project AMSConsole
         
     - name: build WebAPI to have test
-      if: ${{ github.ref == 'refs/heads/main' }}
+      # if: ${{ github.ref == 'refs/heads/main' }}
       run: |
         cd src 
         cd AMS
@@ -65,7 +65,7 @@ jobs:
         dotnet publish -o ../publish/publishWebAPI -r win-x64 --self-contained true -p:PublishSingleFile=false -p:PublishTrimmed=true 
 
     - name: create package
-      if: ${{ github.ref == 'refs/heads/main' }}
+      # if: ${{ github.ref == 'refs/heads/main' }}
       run: |
         cd src 
         cd AMS
@@ -83,7 +83,7 @@ jobs:
 
 
     - name: 'Upload nuget'
-      if: ${{ github.ref == 'refs/heads/main' }}
+      # if: ${{ github.ref == 'refs/heads/main' }}
       uses: actions/upload-artifact@v2
       with:
         name: AMSNuget_${{github.run_number}}
@@ -91,7 +91,7 @@ jobs:
         retention-days: 1
   
     - name: 'Upload example'
-      if: ${{ github.ref == 'refs/heads/main' }}
+      # if: ${{ github.ref == 'refs/heads/main' }}
       uses: actions/upload-artifact@v2
       with:
         name: Example_${{github.run_number}}
