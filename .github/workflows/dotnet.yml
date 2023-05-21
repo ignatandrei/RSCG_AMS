@@ -70,36 +70,37 @@ jobs:
         cd src 
         cd AMS
         dotnet tool restore
-        dotnet pwsh readme.ps1
+        # dotnet pwsh readme.ps1
         # dotnet pwsh setVersion.ps1
         echo 'now aop'
-        dotnet pwsh AOPMethod.ps1
+        # dotnet pwsh AOPMethod.ps1
         dotnet clean  
         dotnet build
         echo 'now pack'
-        dotnet pack AMS_Base/AMS_Base.csproj    -o nugetPackages  --include-symbols --include-source 
-        dotnet pack AMS/AMS.csproj              -o nugetPackages  --include-symbols --include-source
-        dotnet pack AMSWebAPI/AMSWebAPI.csproj  -o nugetPackages  --include-symbols --include-source
+        dotnet pack AMS_Base/AMS_Base.csproj    -o ${{github.workspace}}/src/nugetPackages --include-symbols --include-source 
+        dotnet pack AMS/AMS.csproj              -o ${{github.workspace}}/src/nugetPackages --include-symbols --include-source
+        dotnet pack AMSWebAPI/AMSWebAPI.csproj  -o ${{github.workspace}}/src/nugetPackages --include-symbols --include-source
 
 
     - name: 'Upload nuget'
       # if: ${{ github.ref == 'refs/heads/main' }}
       uses: actions/upload-artifact@v2
       with:
-        name: AMSNuget_${{github.run_number}}
-        path: src/AMS/nugetPackages
+        name: Nuget_${{github.run_number}}
+        path: src/nugetPackages
         retention-days: 1
   
-    - name: 'Upload example'
-      # if: ${{ github.ref == 'refs/heads/main' }}
-      uses: actions/upload-artifact@v2
-      with:
-        name: Example_${{github.run_number}}
-        path: src/AMS/publish
-        retention-days: 1
+    # - name: 'Upload example'
+    #   # if: ${{ github.ref == 'refs/heads/main' }}
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #     name: Example_${{github.run_number}}
+    #     path: src/AMS/publish
+    #     retention-days: 1
 
     - name: push to nuget
       run: |
-        dotnet nuget push ${{github.workspace}}/src/AMS/nugetPackages/*symb*.*pkg --api-key  ${{ secrets.NUGETAPIKEY }} --source https://api.nuget.org/v3/index.json
+        
+        dotnet nuget push "${{github.workspace}}/src/nugetPackages/*symb*.*pkg" --api-key  ${{ secrets.NUGETAPIKEY }} --source https://api.nuget.org/v3/index.json
   
     
